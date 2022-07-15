@@ -1,7 +1,15 @@
-module.exports = {
-    directory_revision: (directory) => directory.replace(/\\/g, "/"),
+class StringHelper {
 
-    bool_to_number: (bool) => bool ? 1 : 0,
+    static defaultSign = "这个人很懒，TA什么也没有说";
 
-    default_sign: "这个人很懒，TA什么也没有说"
-};
+    static directoryRevision(directory) {
+        return directory.replace(/\\/g, "/");
+    }
+
+    static boolToNumber(bool) {
+        return (bool) => bool ? 1 : 0;
+    }
+
+}
+
+module.exports = StringHelper;

@@ -36,6 +36,9 @@
     import {ElMessage} from "element-plus";
     import {login} from "../api/index";
     import TimeHelper from "../utils/time_helper";
+    import EnumHelper from "../utils/enum_helper";
+    import URLHelper from "../utils/url_helper";
+    import MessageHelper from "../utils/message_helper";
     import Config from "../utils/config"
 
     export default {
@@ -71,7 +74,6 @@
                 ]
             };
 
-
             const form = ref();
 
             const submitForm = () => {
@@ -79,24 +81,27 @@
                 form.value.validate(async (valid) => {
                     if (valid) {
                         // not empty, send request to login
-                        let result = await login(params.username, params.password);
+                        let result = await login({username: params.username, password: params.password});
+                        console.log(result);
                         if (result.code === 200) {
                             ElMessage.success(result.message);
-                            localStorage.setItem("username", result.info.username);
-                            localStorage.setItem("user_id", result.info.id);
-                            localStorage.setItem("last_login", TimeHelper.convert_date_to_date_time_string(new Date(result.info.last_login)));
-                            localStorage.setItem("token", result.token);
-                            localStorage.setItem("level", result.info.level);
-                            router.replace("/");
-                        } else if (result.code === 204) {
-                            ElMessage.warning(result.message);
-                            return false;
-                        } else if (result.code === 500) {
+                            let userinfo = result.info.userinfo;
+                            localStorage.setItem(EnumHelper.localStorageItem.avatar, URLHelper.parseUrl(userinfo.avatar));
+                            localStorage.setItem(EnumHelper.localStorageItem.realname, userinfo.realname);
+                            localStorage.setItem(EnumHelper.localStorageItem.username, userinfo.username);
+                            localStorage.setItem(EnumHelper.localStorageItem.authority, userinfo.authority);
+                            localStorage.setItem(EnumHelper.localStorageItem.email, userinfo.email);
+                            localStorage.setItem(EnumHelper.localStorageItem.nickname, userinfo.nickname);
+                            localStorage.setItem(EnumHelper.localStorageItem.tel, userinfo.tel);
+                            localStorage.setItem(EnumHelper.localStorageItem.user_id, userinfo.id);
+                            localStorage.setItem(EnumHelper.localStorageItem.token, result.info.token);
+                            await router.replace("/");
+                        } else {
                             ElMessage.error(result.message);
                             return false;
                         }
                     } else {
-                        ElMessage.info("您有尚未填写的字段");
+                        ElMessage.info();
                         return false;
                     }
                 });

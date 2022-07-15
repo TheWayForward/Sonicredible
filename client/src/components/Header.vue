@@ -1,16 +1,14 @@
 <template>
     <div class="header">
-        <!-- 折叠按钮 -->
-        <div class="collapse-btn" @click="collapseChage">
+        <div class="collapse-btn" @click="collapseChange">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">后台管理系统</div>
+        <div class="logo">{{projectName}}</div>
         <div class="header-right">
             <div class="header-user-con">
-
                 <div class="user-avatar">
-                    <img src="../assets/img/img.jpg"/>
+                    <img :src="avatar"/>
                 </div>
 
                 <el-dropdown class="user-name" style="margin: 0 15px;" trigger="click" @command="handleCommand">
@@ -34,22 +32,24 @@
     import {computed, onMounted} from "vue";
     import {useStore} from "vuex";
     import {useRouter} from "vue-router";
+    import Config from "../utils/config";
+    import EnumHelper from "../utils/enum_helper";
 
     export default {
         setup() {
-            const username = localStorage.getItem("username");
-            const message = 2;
-
+            const projectName = Config.PROJECT_NAME;
+            const username = localStorage.getItem(EnumHelper.localStorageItem.username);
+            const avatar = localStorage.getItem(EnumHelper.localStorageItem.avatar);
             const store = useStore();
             const collapse = computed(() => store.state.collapse);
 
-            const collapseChage = () => {
+            const collapseChange = () => {
                 store.commit("handleCollapse", !collapse.value);
             };
 
             onMounted(() => {
                 if (document.body.clientWidth < 1500) {
-                    collapseChage();
+                    collapseChange();
                 }
             });
 
@@ -57,9 +57,15 @@
             const handleCommand = (command) => {
                 if (command === "logout") {
                     sessionStorage.clear();
-                    localStorage.removeItem("username");
-                    localStorage.removeItem("user_id");
-                    localStorage.removeItem("token");
+                    localStorage.removeItem(EnumHelper.localStorageItem.avatar);
+                    localStorage.removeItem(EnumHelper.localStorageItem.username);
+                    localStorage.removeItem(EnumHelper.localStorageItem.token);
+                    localStorage.removeItem(EnumHelper.localStorageItem.user_id);
+                    localStorage.removeItem(EnumHelper.localStorageItem.tel);
+                    localStorage.removeItem(EnumHelper.localStorageItem.nickname);
+                    localStorage.removeItem(EnumHelper.localStorageItem.email);
+                    localStorage.removeItem(EnumHelper.localStorageItem.authority);
+                    localStorage.removeItem(EnumHelper.localStorageItem.realname);
                     router.replace("/login");
                 } else if (command === "user") {
                     router.push("/user");
@@ -68,10 +74,11 @@
 
             return {
                 username,
-                message,
+                avatar,
+                projectName,
                 collapse,
-                collapseChage,
-                handleCommand,
+                collapseChange: collapseChange,
+                handleCommand
             };
         },
     };

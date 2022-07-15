@@ -1,36 +1,47 @@
-const fs = require('fs');
-const path = require('path');
-const jwt_helper = require('jsonwebtoken');
-const secret = "TrWyFowrd";
-const expire_time = 60 * 60 * 24 * 10;
+const JWT = require('jsonwebtoken');
+const Config = require("../config");
+const expire_time = 1000 * 60 * 60 * 24;
 
-class Jwt {
-    constructor(data) {
-        this.data = data;
+class JWTHelpler {
+
+    #data;
+
+    constructor(user_id) {
+        this.#data = {
+            user_id: user_id,
+            timestamp: Date.now()
+        };
     }
 
     generateToken() {
-        let token = jwt_helper.sign(this.data, secret);
-        return token;
+        return JWT.sign(this.#data, Config.aes_key);
     }
 
     static verifyToken(req) {
         let token = req.headers["token"];
         if (token) {
-            return jwt_helper.verify(token, secret, (err, decode) => {
+            return JWT.verify(token, Config.aes_key, (err, decode) => {
                 if (err) {
                     return false;
+                } else {
+                    let tokenData = JWT.decode(token);
+                    if (Date.now() - tokenData.timestamp >= expire_time) {
+                        return false;
+                    } else {
+                        return true;
+                    }
                 }
-                else return true;
             })
+        } else {
+            return false;
         }
-        return false;
     }
 
     static parseToken(req) {
         let token = req.headers["token"];
-        return jwt_helper.decode(token);
+        return JWT.decode(token);
     }
+
 }
 
-module.exports = Jwt;
+module.exports = JWTHelpler;

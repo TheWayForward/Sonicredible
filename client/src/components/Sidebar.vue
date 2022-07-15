@@ -46,52 +46,54 @@
                     title: "首页",
                 },
                 {
-                    icon: "el-icon-document",
-                    index: "1",
-                    title: "内容管理",
+                    icon: "el-icon-user",
+                    index: 0,
+                    title: "用户管理",
                     subs: [
                         {
-                            index: "/wechatminiprogram_content_management",
-                            title: "微信小程序",
+                            index: "/user_management",
+                            title: "用户管理"
+                        },
+                        {
+                            index: "/user_log",
+                            title: "用户日志"
                         }
                     ]
                 },
                 {
-                    icon: "el-icon-s-grid",
-                    index: "/product_management",
-                    title: "商品管理",
-                },
-                {
-                    icon: "el-icon-files",
-                    index: "2",
-                    title: "订单管理",
+                    icon: "el-icon-set-up",
+                    index: 1,
+                    title: "设备管理",
                     subs: [
                         {
-                            index: "/order_unpaid",
-                            title: "待支付"
+                            index: "/device_management",
+                            title: "设备管理"
                         },
                         {
-                            index: "/order_paid",
-                            title: "待发货"
+                            index: "/device_command",
+                            title: "设备指令"
                         },
                         {
-                            index: "/order_sent",
-                            title: "已发货"
-                        },
-                        {
-                            index: "/order_completed",
-                            title: "已完成"
-                        },
-                        {
-                            index: "/order_closed",
-                            title: "已关闭"
-                        },
-                        {
-                            index: "/order_management",
-                            title: "订单查询"
+                            index: "/device_log",
+                            title: "设备日志"
                         }
                     ]
-                }
+                },
+                {
+                    icon: "el-icon-mic",
+                    index: 2,
+                    title: "音频管理",
+                    subs: [
+                        {
+                            index: "/audio_recognition_management",
+                            title: "声纹识别音频管理"
+                        },
+                        {
+                            index: "/audio_command_management",
+                            title: "语义识别音频管理"
+                        }
+                    ]
+                },
             ];
 
             const route = useRoute();

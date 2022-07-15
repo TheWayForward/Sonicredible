@@ -6,6 +6,7 @@
     "start": "node bin/www.js"
   },
   "dependencies": {
+    "aes-js": "^3.1.2",
     "axios": "^0.27.2",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -15,12 +16,17 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "kardia": "^0.14.0",
+    "loadsh": "^0.0.4",
+    "lodash": "^4.17.21",
     "log4js": "^6.6.0",
     "morgan": "~1.9.1",
+    "multiparty": "^4.2.3",
     "mysql": "^2.18.1",
     "nodejs-websocket": "^1.7.2",
+    "nodemailer": "^6.7.7",
     "process": "^0.11.10",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "tencentcloud-sdk-nodejs": "^4.0.381"
   },
   "devDependencies": {
     "express-session": "^1.17.3"

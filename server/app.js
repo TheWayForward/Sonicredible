@@ -18,8 +18,9 @@ const rateLimitPlugin = rateLimit({
   headers: true
 });
 
-let indexRouter = require('./routes/index');
-let userRouter = require('./routes/user');
+const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user');
+const uploadRouter = require('./routes/upload');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, "")));
 app.use(rateLimitPlugin);
 app.use("/api/v1/index", indexRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/upload", uploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
