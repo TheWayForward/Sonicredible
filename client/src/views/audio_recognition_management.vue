@@ -14,24 +14,16 @@
                 <span>音频上传接口测试</span>
             </div>
         </template>
-
         <el-upload
-                list-type="text"
                 :on-change="handleAudioChange"
                 :on-remove="handleAudioRemove"
                 :file-list="fileList.testUpload.tempAudioList"
                 :limit="1"
                 :auto-upload="false"
                 action="#">
+
             <template #default>
-                <el-tooltip
-                        class="box-item"
-                        effect="light"
-                        content="最多添加1张图片"
-                        placement="top"
-                >
-                    <i class="el-icon-lx-roundadd"></i>
-                </el-tooltip>
+                <i class="el-icon-lx-roundadd"></i>
             </template>
         </el-upload>
     </el-card>
@@ -75,9 +67,9 @@
                 form.append(EnumHelper.formField.audio, tempFile.raw);
                 let result = await uploadAudioRecognition(form);
                 if (result.code === EnumHelper.HTTPStatus.OK) {
+                    console.log(result);
                     ElMessage.success(MessageHelper.upload.success);
                     let url = result.info.path;
-                    console.log(url);
                     file[file.length - 1].url = url;
                     this.fileList.testUpload.tempAudioList.push({
                         url: UrlHelper.parseUrl(url),

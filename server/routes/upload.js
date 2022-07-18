@@ -9,6 +9,7 @@ const EnumHelper = require("../utils/enum_helper");
 const JWTHelper = require("../utils/jwt_helper");
 const PermissionHelper = require("../utils/permission_helper");
 const StringHelper = require("../utils/string_helper");
+const FileHelper = require("../utils/file_helper");
 
 router.post("/avatar", PermissionHelper.tokenVerification, (req, res) => {
     try {
@@ -38,13 +39,16 @@ router.post("/audio_recognition", PermissionHelper.tokenVerification, (req, res)
                 res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
             }
             let path = StringHelper.directoryRevision("" + files[EnumHelper.formField.audio][0]["path"]);
-            
-            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: {path: path}}));
+            let base64 = FileHelper.fileToBase64(path);
+
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: {path: path, base64: base64}}));
         });
     } catch (err) {
         console.log(err);
         res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
     }
 });
+
+
 
 module.exports = router;
