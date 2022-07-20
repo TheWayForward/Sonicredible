@@ -256,7 +256,6 @@
             async getUsers() {
                 this.userTableLoading = true;
                 let result = await getUsers(this.pageIndex);
-                console.log(result);
                 if (result.code === EnumHelper.HTTPStatus.OK) {
                     let data = result.info;
                     this.totalUser = data.user_count;
@@ -265,6 +264,8 @@
                     userList.forEach((user) => {
                         user.time_created = new Date(user.time_created);
                         user.time_created_string = TimeHelper.convert_date_to_date_time_string(user.time_created);
+                        user.time_modified = new Date(user.time_modified);
+                        user.time_modified_string = TimeHelper.convert_date_to_date_time_string(user.time_modified);
                         user.avatar = UrlHelper.parseUrl(user.avatar);
                     });
                     this.userList = userList;

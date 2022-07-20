@@ -47,6 +47,20 @@ export const getUsers = (page_index) => ajax({
     method: EnumHelper.HTTPMethod.POST
 });
 
+export const getAudios = (page_index) => ajax({
+    url: `${BASE_URL}/audio/get_audios`,
+    params: {
+        page_index: page_index
+    },
+    method: EnumHelper.HTTPMethod.POST
+});
+
+export const audioRecognitionByAudioId = (audio_id) => ajax({
+    url: `${BASE_URL}/audio/recognition`,
+    params: {audio_id: audio_id},
+    method: EnumHelper.HTTPMethod.POST
+});
+
 export const uploadAvatar = (form) => ajax_fileupload(`${BASE_URL}/upload/avatar`, form);
 
 export const uploadAudioRecognition = (form) => ajax_fileupload(`${BASE_URL}/upload/audio_recognition`, form);

@@ -1,7 +1,7 @@
 const TencentCloud = require("tencentcloud-sdk-nodejs");
 const AsrClient = TencentCloud.asr.v20190614.Client;
-
 const EnumHelper = require("../utils/enum_helper");
+const FileHelper = require("../utils/file_helper");
 
 class TencentCloudHelper {
 
@@ -18,9 +18,18 @@ class TencentCloudHelper {
         }
     };
 
-    static async sentenceRecognition(params) {
+    static async sentenceRecognition({userAudioKey, audioFileDirectory}) {
         const client = new AsrClient(this.#clientConfig);
-        return await client.SentenceRecognition(params);
+        return await client.SentenceRecognition({
+            "UsrAudioKey": userAudioKey,
+            "SubServiceType": 2,
+            "ProjectId": 0,
+            "EngSerViceType": "16k_zh",
+            "VoiceFormat": "mp3",
+            "Data": FileHelper.fileToBase64(audioFileDirectory),
+            "SourceType": 1,
+            "WordInfo": 1
+        });
     }
 
 }

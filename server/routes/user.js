@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+
 const UserDao = require("../dao/user_dao");
+
 const MessageHelper = require("../utils/message_helper");
 const CryptoHelper = require("../utils/crypto_helper");
 const ResponseHelper = require("../utils/response_helper");
@@ -110,7 +112,7 @@ router.post("/get_users", PermissionHelper.tokenVerification, PermissionHelper.m
     }
 });
 
-router.post("/update", PermissionHelper.tokenVerification, async (req, res) => {
+router.post("/update", PermissionHelper.tokenVerification, PermissionHelper.managerVerification, async (req, res) => {
     try {
         let data = req.body;
         let id = data.id;

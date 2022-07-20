@@ -37,11 +37,14 @@ class MessageHelper {
     static captcha_unknown = "未知来源的验证码！";
 
     // update
-    static   update_success = "修改成功！";
+    static update_success = "修改成功！";
 
     // upload
-    static   image_url_upload_success = "图片链接上传成功！";
+    static image_url_upload_success = "图片链接上传成功！";
     static image_upload_success = "图片上传成功！";
+
+    // audio
+    static audio_empty = "未找到对应ID的音频！"
 
     // device
     static  device_unauthorized = "非法获取设备信息！";

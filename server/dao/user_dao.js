@@ -6,8 +6,7 @@ class UserDao {
 
     static async selectUser(id) {
         let sql = SQL.generateSQL(SQL.selectById({table_name: "user", id: id}));
-        let result = await Query.query(sql.sql);
-        return result;
+        return await Query.query(sql.sql);
     }
 
     static async login({username, password}) {
@@ -15,8 +14,7 @@ class UserDao {
             table_name: "user",
             condition: `WHERE password = '${password}' AND username = '${username}' OR tel = '${username}' OR email = '${username}'`
         }));
-        let result = await Query.query(sql.sql, sql.params);
-        return result;
+        return await Query.query(sql.sql, sql.params);
     }
 
     static async register({nickname, username, password, tel}) {
@@ -25,8 +23,7 @@ class UserDao {
             table_name: "user",
             params: params
         }), [nickname, username, password, tel]);
-        let result = await Query.query(sql.sql, sql.params);
-        return result;
+        return await Query.query(sql.sql, sql.params);
     }
 
     static async fullRegister({username, password, realname, nickname, tel, email}) {
@@ -35,8 +32,7 @@ class UserDao {
             table_name: "user",
             params: params
         }), [username, password, realname, nickname, tel, email]);
-        let result = await Query.query(sql.sql, sql.params);
-        return result;
+        return await Query.query(sql.sql, sql.params);
     }
 
     static async selectUsers(page_index) {
@@ -58,8 +54,8 @@ class UserDao {
     static async update({realname, nickname, avatar, tel, email, id}) {
         let params = {realname, nickname, avatar, tel, email, id};
         let sql = SQL.generateSQL(SQL.update({table_name: "user", params: params, condition: `WHERE id = ?`}), [realname, nickname, avatar, tel, email, id]);
-        let result = await Query.query(sql.sql, sql.params);
-        return result;
+        console.log(sql);
+        return await Query.query(sql.sql, sql.params);
     }
 
 }

@@ -1,32 +1,34 @@
 <template>
-    <div class="crumbs">
-        <el-breadcrumb separator="/">
-            <el-breadcrumb-item>
-                <i class="el-icon-mic"></i> 音频管理
-            </el-breadcrumb-item>
-            <el-breadcrumb-item>声纹识别音频管理</el-breadcrumb-item>
-        </el-breadcrumb>
-    </div>
+    <div>
+        <div class="crumbs">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item>
+                    <i class="el-icon-mic"></i> 音频管理
+                </el-breadcrumb-item>
+                <el-breadcrumb-item>声纹识别音频管理</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
 
-    <el-card shadow="hover">
-        <template #header>
-            <div class="card-header">
-                <span>音频上传接口测试</span>
-            </div>
-        </template>
-        <el-upload
-                :on-change="handleAudioChange"
-                :on-remove="handleAudioRemove"
-                :file-list="fileList.testUpload.tempAudioList"
-                :limit="1"
-                :auto-upload="false"
-                action="#">
-
-            <template #default>
-                <i class="el-icon-lx-roundadd"></i>
+        <el-card shadow="hover">
+            <template #header>
+                <div class="card-header">
+                    <span>音频上传接口测试</span>
+                </div>
             </template>
-        </el-upload>
-    </el-card>
+            <el-upload
+                    :on-change="handleAudioChange"
+                    :on-remove="handleAudioRemove"
+                    :file-list="fileList.testUpload.tempAudioList"
+                    :limit="1"
+                    :auto-upload="false"
+                    action="#">
+
+                <template #default>
+                    <i class="el-icon-lx-roundadd"></i>
+                </template>
+            </el-upload>
+        </el-card>
+    </div>
 </template>
 
 <script>

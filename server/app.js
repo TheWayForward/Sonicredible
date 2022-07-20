@@ -21,6 +21,7 @@ const rateLimitPlugin = rateLimit({
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const uploadRouter = require('./routes/upload');
+const audioRouter = require('./routes/audio');
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use(rateLimitPlugin);
 app.use("/api/v1/index", indexRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/upload", uploadRouter);
+app.use("/api/v1/audio", audioRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

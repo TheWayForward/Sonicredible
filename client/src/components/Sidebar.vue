@@ -47,7 +47,7 @@
                 },
                 {
                     icon: "el-icon-user",
-                    index: 0,
+                    index: "0",
                     title: "用户管理",
                     subs: [
                         {
@@ -62,7 +62,7 @@
                 },
                 {
                     icon: "el-icon-set-up",
-                    index: 1,
+                    index: "1",
                     title: "设备管理",
                     subs: [
                         {
@@ -81,7 +81,7 @@
                 },
                 {
                     icon: "el-icon-mic",
-                    index: 2,
+                    index: "2",
                     title: "音频管理",
                     subs: [
                         {

@@ -27,7 +27,9 @@
                 message: ref("first"),
             }
         },
+
         components: {Schart},
+
         methods: {
         },
 
