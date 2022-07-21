@@ -18,11 +18,6 @@
                       v-loading="commandTableLoading" size="small">
                 <el-table-column align="center" prop="id" label="指令ID" width="100"/>
                 <el-table-column align="center" prop="keyword" label="关键词"/>
-                <el-table-column align="center" label="平台">
-                    <template #default="scope">
-                        {{scope.row.platform_famliy_name}} >> {{scope.row.platform_name}}
-                    </template>
-                </el-table-column>
                 <el-table-column align="center" prop="time_created_string" label="创建时间"/>
                 <el-table-column align="center" prop="time_modified_string" label="修改时间"/>
                 <el-table-column align="center" fixed="right" label="操作" width="120">
@@ -67,15 +62,15 @@
 </template>
 
 <script>
-    import EnumHelper from "../utils/enum_helper";
     import {ElMessage} from "element-plus";
+    import {Codemirror} from "vue-codemirror";
     import VersatileHelper from "../utils/versatile_helper";
     import {getCommands, getUsers} from "../api/index";
     import MessageHelper from "../utils/message_helper";
     import UrlHelper from "../utils/url_helper";
     import TimeHelper from "../utils/time_helper";
     import ObjectHelper from "../utils/object_helper";
-    import {Codemirror} from "vue-codemirror";
+    import EnumHelper from "../utils/enum_helper";
 
     export default {
         name: "audio_command_management",

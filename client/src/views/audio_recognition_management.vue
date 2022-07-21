@@ -47,14 +47,13 @@
                     <template #default="scope">
                         <el-button type="text" size="small" @click="handleAudioRecognitionDialog(scope.row)">语义识别
                         </el-button>
-                        <el-button type="text" size="small">指令转换</el-button>
+                        <el-button type="text" size="small" @click="handleAudioInstructionDialog(scope.row)">指令转换</el-button>
                         <el-button type="text" size="small" @click="handleAudioDownload(scope.row.url)">下载</el-button>
                     </template>
                 </el-table-column>
             </el-table>
 
-            <el-dialog title="语义识别" v-model="audioRecognitionDialogVisible"
-                       v-loading="audioRecognitionDialogButtonLoading" width="50%" :close-on-click-modal="false">
+            <el-dialog title="语义识别" v-model="audioRecognitionDialogVisible" width="50%" :close-on-click-modal="false">
                 <div style="margin-bottom: 20px;"
                      v-if="!dialog.audioRecognitionDialog.result.hasOwnProperty('RequestId')">
                     <el-tooltip
@@ -84,6 +83,11 @@
                 </el-descriptions>
             </el-dialog>
 
+            <el-dialog title="指令转换" v-model="audioInstructionDialogVisible" width="50%" :close-on-click-modal="false">
+
+            </el-dialog>
+
+
         </el-card>
 
     </div>
@@ -91,7 +95,7 @@
 
 <script>
     import {ElMessage} from "element-plus";
-    import {audioRecognitionByAudioId, getAudios} from "../api/index";
+    import {audioRecognitionByAudioId, getAudios, audioInstructionByAudioId} from "../api/index";
     import EnumHelper from "../utils/enum_helper";
     import TimeHelper from "../utils/time_helper";
     import UrlHelper from "../utils/url_helper";
@@ -113,12 +117,15 @@
                 audioRecognitionDialogButtonLoading: false,
 
                 audioRecognitionDialogVisible: false,
+                audioInstructionDialogVisible: false,
 
                 dialog: {
                     audioRecognitionDialog: {
                         result: ""
-                    }
-                }
+                    },
+                    audioInstructionDialog: {}
+                },
+
             }
         },
 
@@ -138,7 +145,6 @@
                 let result = await getAudios(this.pageIndex);
                 if (result.code === EnumHelper.HTTPStatus.OK) {
                     let data = result.info;
-                    console.log(data);
                     this.totalAudio = data.audio_count;
                     this.audioPageSize = data.batch;
                     let audioList = data.audio_data;
@@ -168,6 +174,15 @@
                 }
             },
 
+            async audioInstruction(audio_id) {
+                let result = await audioInstructionByAudioId(audio_id);
+                if (result.code === EnumHelper.HTTPStatus.OK) {
+                    ElMessage.success(result.message);
+                } else {
+                    ElMessage.warning(result.message);
+                }
+            },
+
             getWordListFromAudioRecognitionResult(result) {
                 let wordList = [];
                 result.result.WordList.forEach((word) => {
@@ -177,11 +192,18 @@
             },
 
             handleAudioRecognitionDialog(audio) {
+                audio.resultString = JSON.stringify(audio.result);
                 this.dialog.audioRecognitionDialog = ObjectHelper.cloneObject(audio);
                 if (this.dialog.audioRecognitionDialog.result.hasOwnProperty('RequestId')) {
                     this.dialog.audioRecognitionDialog.wordList = this.getWordListFromAudioRecognitionResult(this.dialog.audioRecognitionDialog);
                 }
                 this.audioRecognitionDialogVisible = true;
+            },
+
+            handleAudioInstructionDialog(audio) {
+                this.dialog.audioInstructionDialog = ObjectHelper.cloneObject(audio);
+                this.audioInstructionDialogVisible = true;
+                this.audioInstruction(audio.id);
             },
 
             handleAudioDownload(e) {

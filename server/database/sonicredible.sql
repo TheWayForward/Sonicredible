@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 21/07/2022 20:30:55
+ Date: 21/07/2022 23:17:26
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `audio_command`;
 CREATE TABLE `audio_command`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `platform_id` int(11) NOT NULL COMMENT '硬件平台类型id',
-  `keyword` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '对应关键词id',
+  `keyword` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '对应关键词',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '指令内容',
   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '描述',
   `is_valid` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否开启',
@@ -36,7 +36,7 @@ CREATE TABLE `audio_command`  (
 -- ----------------------------
 -- Records of audio_command
 -- ----------------------------
-INSERT INTO `audio_command` VALUES (1, 1, '调整LED亮度至', 'print(\"HelloWorld!\");', '', 0, '2022-07-21 14:37:31', '2022-07-21 15:30:08');
+INSERT INTO `audio_command` VALUES (1, 1, '调整LED亮度', '{\"device\": \"LED\", \"brightness\": ?}', '', 1, '2022-07-21 14:37:31', '2022-07-21 23:10:20');
 
 -- ----------------------------
 -- Table structure for audio_recognition
@@ -78,40 +78,6 @@ CREATE TABLE `authority`  (
 INSERT INTO `authority` VALUES (1, 'root');
 INSERT INTO `authority` VALUES (2, 'manager');
 INSERT INTO `authority` VALUES (3, 'user');
-
--- ----------------------------
--- Table structure for platform
--- ----------------------------
-DROP TABLE IF EXISTS `platform`;
-CREATE TABLE `platform`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `platform_family_id` int(11) NOT NULL COMMENT '所属系列id',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '平台名称',
-  `time_created` timestamp(0) NOT NULL DEFAULT current_timestamp(0) COMMENT '创建时间',
-  `time_modified` timestamp(0) NOT NULL DEFAULT current_timestamp(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最近修改时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of platform
--- ----------------------------
-INSERT INTO `platform` VALUES (1, 1, 'Arduino UNO', '2022-07-21 14:04:06', '2022-07-21 14:04:06');
-
--- ----------------------------
--- Table structure for platform_family
--- ----------------------------
-DROP TABLE IF EXISTS `platform_family`;
-CREATE TABLE `platform_family`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of platform_family
--- ----------------------------
-INSERT INTO `platform_family` VALUES (1, 'Arduino');
 
 -- ----------------------------
 -- Table structure for user

@@ -1,6 +1,6 @@
 const db = require("../database/database");
-const DatabaseTransaction = require("../database/database_transaction");
-const DatabaseTask = require("../database/database_task");
+const DatabaseTransaction = require("../database/transaction");
+const DatabaseTask = require("../database/task");
 
 class SetupHelper {
 

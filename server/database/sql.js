@@ -48,6 +48,20 @@ class SQL {
     static update({table_name, params, condition = ""}) {
         return `UPDATE ${table_name} SET ${this.#objectToUpdate(params)} ${condition}`;
     }
+
+    static fuzzySearch({keyword, table_name, fields = "*", column, condition = ""}) {
+        keyword = keyword.replace(/\s+/g, ' ');
+        keyword = keyword.replace(/(^\s*)|(\s*$)/g, '');
+        let key_array = keyword.split(' ');
+        let sql = `SELECT ${fields} FROM ${table_name} WHERE ${column} LIKE `;
+        key_array.forEach((item, index, arr) => {
+            sql += "'%" + item + "%'";
+            if (index !== arr.length - 1) {
+                sql += ` OR ${column} LIKE `;
+            }
+        });
+        return `${sql} ${condition === "" ? "" : condition}`;
+    }
 }
 
 module.exports = SQL;

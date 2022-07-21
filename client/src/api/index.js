@@ -61,12 +61,6 @@ export const audioRecognitionByAudioId = (audio_id) => ajax({
     method: EnumHelper.HTTPMethod.POST
 });
 
-export const audioRecognitionByAudioId = (audio_id) => ajax({
-    url: `${BASE_URL}/audio/recognition`,
-    params: {audio_id: audio_id},
-    method: EnumHelper.HTTPMethod.POST
-});
-
 export const audioInstructionByAudioId = (audio_id) => ajax({
     url: `${BASE_URL}/audio/instruction`,
     params: {audio_id: audio_id},

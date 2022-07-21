@@ -70,7 +70,21 @@ class ObjectHelper {
         return lodash.cloneDeep(obj);
     }
 
-    static object_equal = (obj_1, obj_2) => lodash.isEqual(obj_1, obj_2);
+    static objectEqual = (obj_1, obj_2) => lodash.isEqual(obj_1, obj_2);
+
+    static findMost(arr) {
+        let maxElement;
+        let maxNum = 1;
+        let obj = arr.reduce(function (p, k) {
+            p[k] ? p[k]++ : p[k] = 1;
+            if (p[k] > maxNum) {
+                maxElement = k;
+                maxNum++;
+            }
+            return p;
+        }, {});
+        return maxElement;
+    }
 
 }
 

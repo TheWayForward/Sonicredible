@@ -29,7 +29,7 @@ class ResponseHelper {
 
     static authorityUltraVires({message = MessageHelper.ultra_vires, info}) {
         return {
-            code: EnumHelper.HTTPStatus.UNAUTHORIZED,
+            code: EnumHelper.HTTPStatus.ULTRA_VIRES,
             message: message,
             info: info
         }

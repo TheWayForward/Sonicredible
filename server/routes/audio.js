@@ -62,6 +62,11 @@ router.post("/instruction", PermissionHelper.tokenVerification, async (req, res)
                 message: MessageHelper.audio_empty,
             }));
         } else {
+            let audioData = result[0];
+            audioData.result = JSON.parse(audioData.result);
+            let wordList = audioData.result.WordList;
+
+            console.log(wordList);
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: result[0]}));
         }
     } catch (err) {
