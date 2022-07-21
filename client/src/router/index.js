@@ -59,10 +59,18 @@ const routes = [
                 component: () => import("../views/device_log.vue")
             },
             {
+                path: "/audio_print_management",
+                name: "audio_print_management",
+                meta: {
+                    title: "声纹识别音频管理"
+                },
+                component: () => import("../views/audio_print_management.vue")
+            },
+            {
                 path: "/audio_recognition_management",
                 name: "audio_recognition_management",
                 meta: {
-                    title: "声纹识别音频管理"
+                    title: "语义识别音频管理"
                 },
                 component: () => import("../views/audio_recognition_management.vue")
             },

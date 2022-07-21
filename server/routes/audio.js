@@ -2,7 +2,6 @@ const express = require('express');
 const Multiparty = require("multiparty");
 const router = express.Router();
 
-const UserDao = require("../dao/user_dao");
 const AudioDao = require("../dao/audio_dao");
 
 const MessageHelper = require("../utils/message_helper");
@@ -30,7 +29,7 @@ router.post("/recognition", PermissionHelper.tokenVerification, async (req, res)
         } else {
             let audioData = result[0];
             let recognitionResult = await TencentCloudHelper.sentenceRecognition({userAudioKey: audioData.serial, audioFileDirectory: audioData.url});
-            result = await AudioDao.updateResult({result: JSON.stringify(result), id: audio_id});
+            result = await AudioDao.updateResult({result: JSON.stringify(recognitionResult), id: audio_id});
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: recognitionResult}));
         }
     } catch (err) {
@@ -51,5 +50,24 @@ router.post("/get_audios", PermissionHelper.tokenVerification, PermissionHelper.
     }
 });
 
+router.post("/instruction", PermissionHelper.tokenVerification, async (req, res) => {
+    try {
+        let tokenData = JWTHelper.parseToken(req);
+        let user_id = tokenData.user_id;
+        let data = req.body;
+        let audio_id = req.body.audio_id;
+        let result = await AudioDao.selectAudio(audio_id);
+        if (!result.length) {
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({
+                message: MessageHelper.audio_empty,
+            }));
+        } else {
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: result[0]}));
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
+    }
+});
 
 module.exports = router;

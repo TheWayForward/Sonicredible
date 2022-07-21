@@ -5,84 +5,61 @@
                 <el-breadcrumb-item>
                     <i class="el-icon-mic"></i> 音频管理
                 </el-breadcrumb-item>
-                <el-breadcrumb-item>语义识别音频管理</el-breadcrumb-item>
+                <el-breadcrumb-item>音频指令管理</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
         <el-card shadow="hover">
-            <el-table border :data="audioList" style="width: 100%;"
-                      v-loading="audioTableLoading" size="small">
-                <el-table-column align="center" prop="id" label="音频ID" width="100"/>
-                <el-table-column align="center" prop="user_id" label="用户ID" width="100"/>
-                <el-table-column label="base64编码" align="center" width="250">
+            <div style="margin-bottom: 20px;">
+                <el-button type="primary" size="small" @click="handleCommandRegisterDialog">新建指令</el-button>
+            </div>
+
+            <el-table border :data="commandList" style="width: 100%;"
+                      v-loading="commandTableLoading" size="small">
+                <el-table-column align="center" prop="id" label="指令ID" width="100"/>
+                <el-table-column align="center" prop="keyword" label="关键词"/>
+                <el-table-column align="center" label="平台">
                     <template #default="scope">
-                        <el-tooltip
-                                class="box-item"
-                                effect="dark"
-                                content="点击复制"
-                                placement="top"
-                        >
-                            <el-button size="small" @click="handleCopy(scope.row.base64)" style="width: 80%;">
-                                {{scope.row.base64.slice(0, 20) + "..."}}
-                            </el-button>
-                        </el-tooltip>
+                        {{scope.row.platform_famliy_name}} >> {{scope.row.platform_name}}
                     </template>
                 </el-table-column>
-                <el-table-column label="路径" align="center">
+                <el-table-column align="center" prop="time_created_string" label="创建时间"/>
+                <el-table-column align="center" prop="time_modified_string" label="修改时间"/>
+                <el-table-column align="center" fixed="right" label="操作" width="120">
                     <template #default="scope">
-                        <el-tooltip
-                                class="box-item"
-                                effect="dark"
-                                content="点击复制"
-                                placement="top"
-                        >
-                            <el-button size="small" @click="handleCopy(scope.row.url)">
-                                {{scope.row.url}}
-                            </el-button>
-                        </el-tooltip>
-                    </template>
-                </el-table-column>
-                <el-table-column align="center" prop="time_created_string" label="创建时间" width="180"/>
-                <el-table-column align="center" fixed="right" label="操作" width="200">
-                    <template #default="scope">
-                        <el-button type="text" size="small" @click="handleAudioRecognitionDialog(scope.row)">语义识别
-                        </el-button>
-                        <el-button type="text" size="small">指令转换</el-button>
-                        <el-button type="text" size="small" @click="handleAudioDownload(scope.row.url)">下载</el-button>
+                        <el-button type="text" size="small" @click="handleCommandUpdateDialog(scope.row)">编辑</el-button>
+                        <el-button type="text" size="small" :disabled="scope.row.is_valid">启用</el-button>
+                        <el-button type="text" size="small" :disabled="!scope.row.is_valid">停用</el-button>
                     </template>
                 </el-table-column>
             </el-table>
 
-            <el-dialog title="语义识别" v-model="audioRecognitionDialogVisible"
-                       v-loading="audioRecognitionDialogButtonLoading" width="50%" :close-on-click-modal="false">
-                <div style="margin-bottom: 20px;"
-                     v-if="!dialog.audioRecognitionDialog.result.hasOwnProperty('RequestId')">
-                    <el-tooltip
-                            class="box-item"
-                            effect="dark"
-                            content="该条语音尚未进行语义识别！点击进行语义识别！"
-                            placement="right"
-                    >
-                        <el-button type="primary" size="small" :loading="audioRecognitionDialogButtonLoading"
-                                   @click="audioRecognition(dialog.audioRecognitionDialog.id)">识别
-                        </el-button>
-                    </el-tooltip>
-                </div>
-                <el-descriptions
-                        direction="vertical"
-                        :column="1"
-                        size="small"
-                        border
-                        v-else
-                >
-                    <el-descriptions-item label="识别结果">
-                        <code class="javaScript">{{dialog.audioRecognitionDialog.result}}</code>
-                    </el-descriptions-item>
-                    <el-descriptions-item label="分词">
-                        <el-button v-for="word in dialog.audioRecognitionDialog.wordList" size="small" round @click="handleCopy(word)">{{word}}</el-button>
-                    </el-descriptions-item>
-                </el-descriptions>
+
+
+            <el-dialog title="新建指令" v-model="commandRegisterDialogVisible" width="50%" :close-on-click-modal="false">
+
             </el-dialog>
+
+            <el-dialog title="编辑指令" v-model="commandUpdateDialogVisible" width="50%" :close-on-click-modal="false">
+                <codemirror v-if="commandUpdateDialogVisible"
+                        v-model="dialog.commandUpdateDialog.content"
+                        placeholder="Code goes here..."
+                        style="height: 200px;"
+                        :autofocus="true"
+                        :indent-with-tab="true"
+                        :tab-size="4"
+                />
+            </el-dialog>
+
+            <el-pagination
+                    small
+                    background
+                    style="margin-top: 20px;"
+                    :page-size="commandPageSize"
+                    layout="total, prev, pager, next"
+                    :total="totalCommand"
+                    @current-change="handleCommandPaginationCurrentClick"
+            />
 
         </el-card>
 
@@ -90,123 +67,97 @@
 </template>
 
 <script>
-    import {ElMessage} from "element-plus";
-    import {audioRecognitionByAudioId, getAudios} from "../api/index";
     import EnumHelper from "../utils/enum_helper";
-    import TimeHelper from "../utils/time_helper";
-    import UrlHelper from "../utils/url_helper";
+    import {ElMessage} from "element-plus";
     import VersatileHelper from "../utils/versatile_helper";
+    import {getCommands, getUsers} from "../api/index";
     import MessageHelper from "../utils/message_helper";
+    import UrlHelper from "../utils/url_helper";
+    import TimeHelper from "../utils/time_helper";
     import ObjectHelper from "../utils/object_helper";
+    import {Codemirror} from "vue-codemirror";
 
     export default {
         name: "audio_command_management",
 
+        components: {
+            Codemirror
+        },
+
         data() {
             return {
                 pageIndex: 0,
-                audioPageSize: 0,
-                totalAudio: 0,
-                audioList: [],
+                commandPageSize: 0,
+                totalCommand: 0,
+                commandList: [],
 
-                audioTableLoading: true,
-                audioRecognitionDialogButtonLoading: false,
+                commandTableLoading: false,
 
-                audioRecognitionDialogVisible: false,
+                code: "let a = 1;",
+
+                commandRegisterDialogVisible: false,
+                commandUpdateDialogVisible: false,
 
                 dialog: {
-                    audioRecognitionDialog: {
-                        result: ""
-                    }
+                    commandRegisterDialog: {},
+                    commandUpdateDialog: {
+                    },
                 }
             }
         },
 
         watch: {
-            audioRecognitionDialogVisible() {
-                if (!this.audioRecognitionDialogVisible) {
-                    this.dialog.audioRecognitionDialog = {
-                        result: ""
-                    };
-                }
-            }
+
         },
 
         methods: {
 
-            async getAudios() {
-                let result = await getAudios(this.pageIndex);
+            async getCommands() {
+                this.commandTableLoading = true;
+                let result = await getCommands(this.pageIndex);
                 if (result.code === EnumHelper.HTTPStatus.OK) {
                     let data = result.info;
-                    console.log(data);
-                    this.totalAudio = data.audio_count;
-                    this.audioPageSize = data.batch;
-                    let audioList = data.audio_data;
-                    audioList.forEach((audio) => {
-                        audio.time_created = new Date(audio.time_created);
-                        audio.time_created_string = TimeHelper.convert_date_to_date_time_string(audio.time_created);
-                        audio.time_modified = new Date(audio.time_modified);
-                        audio.time_modified_string = TimeHelper.convert_date_to_date_time_string(audio.time_modified);
-                        audio.result = JSON.parse(audio.result);
-                        audio.url = UrlHelper.parseUrl(audio.url);
+                    this.totalCommand = data.command_count;
+                    this.commandPageSize = data.batch;
+                    let commandList = data.command_data;
+                    commandList.forEach((command) => {
+                        command.time_created = new Date(command.time_created);
+                        command.time_created_string = TimeHelper.convert_date_to_date_time_string(command.time_created);
+                        command.time_modified = new Date(command.time_modified);
+                        command.time_modified_string = TimeHelper.convert_date_to_date_time_string(command.time_modified);
                     });
-                    this.audioList = audioList;
-                    this.audioTableLoading = false;
-                }
-            },
-
-            async audioRecognition(audio_id) {
-                this.audioRecognitionDialogButtonLoading = true;
-                let result = await audioRecognitionByAudioId(audio_id);
-                if (result.code === EnumHelper.HTTPStatus.OK) {
-                    ElMessage.success(result.message);
-                    this.audioRecognitionDialogButtonLoading = false;
-                    this.audioRecognitionDialogVisible = false;
-                    await this.getAudios();
+                    this.commandList = commandList;
+                    console.log(this.commandList);
+                    this.commandTableLoading = false;
                 } else {
                     ElMessage.warning(result.message);
+                    this.commandTableLoading = false;
                 }
             },
+            
+            handleCommandRegisterDialog() {
 
-            getWordListFromAudioRecognitionResult(result) {
-                let wordList = [];
-                result.result.WordList.forEach((word) => {
-                    wordList.push(word.Word);
-                });
-                return wordList;
+                this.commandRegisterDialogVisible = true;
             },
 
-            handleAudioRecognitionDialog(audio) {
-                this.dialog.audioRecognitionDialog = ObjectHelper.cloneObject(audio);
-                if (this.dialog.audioRecognitionDialog.result.hasOwnProperty('RequestId')) {
-                    this.dialog.audioRecognitionDialog.wordList = this.getWordListFromAudioRecognitionResult(this.dialog.audioRecognitionDialog);
-                }
-                this.audioRecognitionDialogVisible = true;
+            handleCommandUpdateDialog(command) {
+                this.dialog.commandUpdateDialog = ObjectHelper.cloneObject(command);
+                this.commandUpdateDialogVisible = true;
+                this.$forceUpdate();
             },
 
-            handleAudioDownload(e) {
-                window.open(e, '_blank');
-            },
+            handleCommandPaginationCurrentClick() {
 
-            handleCopy(e) {
-                let result = VersatileHelper.copyContent(e);
-                if (result) {
-                    ElMessage.success(MessageHelper.copy.success);
-                } else {
-                    ElMessage.warning(MessageHelper.copy.failed);
-                }
             }
-
         },
 
         created() {
-            this.getAudios();
+            this.getCommands();
         },
 
         mounted() {
 
         }
-
     }
 </script>
 

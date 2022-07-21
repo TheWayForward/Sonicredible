@@ -82,7 +82,6 @@
                     if (valid) {
                         // not empty, send request to login
                         let result = await login({username: params.username, password: params.password});
-                        console.log(result);
                         if (result.code === 200) {
                             ElMessage.success(result.message);
                             let userinfo = result.info.userinfo;

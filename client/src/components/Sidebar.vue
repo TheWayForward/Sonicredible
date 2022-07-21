@@ -85,12 +85,16 @@
                     title: "音频管理",
                     subs: [
                         {
-                            index: "/audio_recognition_management",
+                            index: "/audio_print_management",
                             title: "声纹识别音频管理"
                         },
                         {
-                            index: "/audio_command_management",
+                            index: "/audio_recognition_management",
                             title: "语义识别音频管理"
+                        },
+                        {
+                            index: "/audio_command_management",
+                            title: "音频指令管理"
                         }
                     ]
                 },

@@ -5,89 +5,208 @@
                 <el-breadcrumb-item>
                     <i class="el-icon-mic"></i> 音频管理
                 </el-breadcrumb-item>
-                <el-breadcrumb-item>声纹识别音频管理</el-breadcrumb-item>
+                <el-breadcrumb-item>语义识别音频管理</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
 
         <el-card shadow="hover">
-            <template #header>
-                <div class="card-header">
-                    <span>音频上传接口测试</span>
-                </div>
-            </template>
-            <el-upload
-                    :on-change="handleAudioChange"
-                    :on-remove="handleAudioRemove"
-                    :file-list="fileList.testUpload.tempAudioList"
-                    :limit="1"
-                    :auto-upload="false"
-                    action="#">
+            <el-table border :data="audioList" style="width: 100%;"
+                      v-loading="audioTableLoading" size="small">
+                <el-table-column align="center" prop="id" label="音频ID" width="100"/>
+                <el-table-column align="center" prop="user_id" label="用户ID" width="100"/>
+                <el-table-column label="base64编码" align="center" width="250">
+                    <template #default="scope">
+                        <el-tooltip
+                                class="box-item"
+                                effect="dark"
+                                content="点击复制"
+                                placement="top"
+                        >
+                            <el-button size="small" @click="handleCopy(scope.row.base64)" style="width: 80%;">
+                                {{scope.row.base64.slice(0, 20) + "..."}}
+                            </el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+                <el-table-column label="路径" align="center">
+                    <template #default="scope">
+                        <el-tooltip
+                                class="box-item"
+                                effect="dark"
+                                content="点击复制"
+                                placement="top"
+                        >
+                            <el-button size="small" @click="handleCopy(scope.row.url)">
+                                {{scope.row.url}}
+                            </el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" prop="time_created_string" label="创建时间" width="180"/>
+                <el-table-column align="center" fixed="right" label="操作" width="200">
+                    <template #default="scope">
+                        <el-button type="text" size="small" @click="handleAudioRecognitionDialog(scope.row)">语义识别
+                        </el-button>
+                        <el-button type="text" size="small">指令转换</el-button>
+                        <el-button type="text" size="small" @click="handleAudioDownload(scope.row.url)">下载</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
 
-                <template #default>
-                    <i class="el-icon-lx-roundadd"></i>
-                </template>
-            </el-upload>
+            <el-dialog title="语义识别" v-model="audioRecognitionDialogVisible"
+                       v-loading="audioRecognitionDialogButtonLoading" width="50%" :close-on-click-modal="false">
+                <div style="margin-bottom: 20px;"
+                     v-if="!dialog.audioRecognitionDialog.result.hasOwnProperty('RequestId')">
+                    <el-tooltip
+                            class="box-item"
+                            effect="dark"
+                            content="该条语音尚未进行语义识别！点击进行语义识别！"
+                            placement="right"
+                    >
+                        <el-button type="primary" size="small" :loading="audioRecognitionDialogButtonLoading"
+                                   @click="audioRecognition(dialog.audioRecognitionDialog.id)">识别
+                        </el-button>
+                    </el-tooltip>
+                </div>
+                <el-descriptions
+                        direction="vertical"
+                        :column="1"
+                        size="small"
+                        border
+                        v-else
+                >
+                    <el-descriptions-item label="识别结果">
+                        <code class="javaScript">{{dialog.audioRecognitionDialog.result}}</code>
+                    </el-descriptions-item>
+                    <el-descriptions-item label="分词">
+                        <el-button v-for="word in dialog.audioRecognitionDialog.wordList" size="small" round @click="handleCopy(word)">{{word}}</el-button>
+                    </el-descriptions-item>
+                </el-descriptions>
+            </el-dialog>
+
         </el-card>
+
     </div>
 </template>
 
 <script>
-    import EnumHelper from "../utils/enum_helper";
     import {ElMessage} from "element-plus";
-    import VersatileHelper from "../utils/versatile_helper";
-    import {uploadAudioRecognition} from "../api/index";
-    import MessageHelper from "../utils/message_helper";
+    import {audioRecognitionByAudioId, getAudios} from "../api/index";
+    import EnumHelper from "../utils/enum_helper";
+    import TimeHelper from "../utils/time_helper";
     import UrlHelper from "../utils/url_helper";
+    import VersatileHelper from "../utils/versatile_helper";
+    import MessageHelper from "../utils/message_helper";
+    import ObjectHelper from "../utils/object_helper";
 
     export default {
         name: "audio_recognition_management",
 
         data() {
             return {
-                fileList: {
-                    testUpload: {
-                        tempAudioList: []
+                pageIndex: 0,
+                audioPageSize: 0,
+                totalAudio: 0,
+                audioList: [],
+
+                audioTableLoading: true,
+                audioRecognitionDialogButtonLoading: false,
+
+                audioRecognitionDialogVisible: false,
+
+                dialog: {
+                    audioRecognitionDialog: {
+                        result: ""
                     }
+                }
+            }
+        },
+
+        watch: {
+            audioRecognitionDialogVisible() {
+                if (!this.audioRecognitionDialogVisible) {
+                    this.dialog.audioRecognitionDialog = {
+                        result: ""
+                    };
                 }
             }
         },
 
         methods: {
 
-            async handleAudioChange(res, file) {
-                let tempFile = res;
-                console.log(tempFile);
-                if (tempFile.raw.type !== EnumHelper.audioType.MP3) {
-                    ElMessage.warning("只能上传MP3格式的音频！");
-                    return;
-                }
-                if (VersatileHelper.byteToSize(tempFile.raw.size) > 0.5) {
-                    ElMessage.warning("音频不能大于500KB！");
-                    return;
-                }
-                let form = new FormData();
-                form.append(EnumHelper.formField.audio, tempFile.raw);
-                let result = await uploadAudioRecognition(form);
+            async getAudios() {
+                let result = await getAudios(this.pageIndex);
                 if (result.code === EnumHelper.HTTPStatus.OK) {
-                    console.log(result);
-                    ElMessage.success(MessageHelper.upload.success);
-                    let url = result.info.path;
-                    file[file.length - 1].url = url;
-                    this.fileList.testUpload.tempAudioList.push({
-                        url: UrlHelper.parseUrl(url),
-                        name: (this.fileList.testUpload.tempAudioList.length + 1).toString()
+                    let data = result.info;
+                    console.log(data);
+                    this.totalAudio = data.audio_count;
+                    this.audioPageSize = data.batch;
+                    let audioList = data.audio_data;
+                    audioList.forEach((audio) => {
+                        audio.time_created = new Date(audio.time_created);
+                        audio.time_created_string = TimeHelper.convert_date_to_date_time_string(audio.time_created);
+                        audio.time_modified = new Date(audio.time_modified);
+                        audio.time_modified_string = TimeHelper.convert_date_to_date_time_string(audio.time_modified);
+                        audio.result = JSON.parse(audio.result);
+                        audio.url = UrlHelper.parseUrl(audio.url);
                     });
-                    console.log(this.fileList.testUpload.tempAudioList);
+                    this.audioList = audioList;
+                    this.audioTableLoading = false;
+                }
+            },
+
+            async audioRecognition(audio_id) {
+                this.audioRecognitionDialogButtonLoading = true;
+                let result = await audioRecognitionByAudioId(audio_id);
+                if (result.code === EnumHelper.HTTPStatus.OK) {
+                    ElMessage.success(result.message);
+                    this.audioRecognitionDialogButtonLoading = false;
+                    this.audioRecognitionDialogVisible = false;
+                    await this.getAudios();
                 } else {
                     ElMessage.warning(result.message);
                 }
             },
 
-            handleAudioRemove(res, file) {
+            getWordListFromAudioRecognitionResult(result) {
+                let wordList = [];
+                result.result.WordList.forEach((word) => {
+                    wordList.push(word.Word);
+                });
+                return wordList;
+            },
 
+            handleAudioRecognitionDialog(audio) {
+                this.dialog.audioRecognitionDialog = ObjectHelper.cloneObject(audio);
+                if (this.dialog.audioRecognitionDialog.result.hasOwnProperty('RequestId')) {
+                    this.dialog.audioRecognitionDialog.wordList = this.getWordListFromAudioRecognitionResult(this.dialog.audioRecognitionDialog);
+                }
+                this.audioRecognitionDialogVisible = true;
+            },
+
+            handleAudioDownload(e) {
+                window.open(e, '_blank');
+            },
+
+            handleCopy(e) {
+                let result = VersatileHelper.copyContent(e);
+                if (result) {
+                    ElMessage.success(MessageHelper.copy.success);
+                } else {
+                    ElMessage.warning(MessageHelper.copy.failed);
+                }
             }
 
+        },
+
+        created() {
+            this.getAudios();
+        },
+
+        mounted() {
+
         }
+
     }
 </script>
 
