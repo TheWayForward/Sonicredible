@@ -11,6 +11,10 @@ class MessageHelper {
         failed: "复制失败，请直接选中复制！"
     }
 
+    static command = {
+
+    }
+
 }
 
 export default MessageHelper;

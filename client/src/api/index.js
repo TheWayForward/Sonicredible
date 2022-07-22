@@ -75,6 +75,24 @@ export const getCommands = (page_index) => ajax({
     method: EnumHelper.HTTPMethod.POST
 });
 
+export const commandRegister = ({keyword, description, content}) => ajax({
+    url: `${BASE_URL}/command/register`,
+    params: {
+        keyword: keyword,
+        description: description,
+        content: content
+    },
+    method: EnumHelper.HTTPMethod.POST
+});
+
+export const commandUpdate = () => ajax({
+    url: `${BASE_URL}/command/update`,
+    params: {
+
+    },
+    method: EnumHelper.HTTPMethod.POST
+});
+
 export const uploadAvatar = (form) => ajax_fileupload(`${BASE_URL}/upload/avatar`, form);
 
 export const uploadAudioRecognition = (form) => ajax_fileupload(`${BASE_URL}/upload/audio_recognition`, form);

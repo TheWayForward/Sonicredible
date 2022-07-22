@@ -70,7 +70,7 @@
                 </template>
 
                 <el-dialog title="提示" v-model="userRegisterConfirmDialogVisible" width="30%">
-                    <span>确定注册用户{{dialog.userRegisterDialog.username}}？</span>
+                    <span>确定注册用户？</span>
                     <template #footer>
                         <span class="dialog-footer">
                             <el-button @click="userRegisterConfirmDialogVisible = false">取消</el-button>
@@ -325,21 +325,27 @@
                 };
                 if (verificationResult.username.has_error) {
                     ElMessage.warning(verificationResult.username.detail);
+                    this.userRegisterConfirmDialogVisible = false;
                     return;
                 } else if (verificationResult.password.has_error) {
                     ElMessage.warning(verificationResult.password.detail);
+                    this.userRegisterConfirmDialogVisible = false;
                     return;
                 } else if (verificationResult.realname.has_error) {
                     ElMessage.warning(verificationResult.realname.detail);
+                    this.userRegisterConfirmDialogVisible = false;
                     return;
                 } else if (verificationResult.nickname.has_error) {
                     ElMessage.warning(verificationResult.nickname.detail);
+                    this.userRegisterConfirmDialogVisible = false;
                     return;
                 } else if (verificationResult.tel.has_error) {
                     ElMessage.warning(verificationResult.tel.detail);
+                    this.userRegisterConfirmDialogVisible = false;
                     return;
                 } else if (verificationResult.email.has_error) {
                     ElMessage.warning(verificationResult.email.detail);
+                    this.userRegisterConfirmDialogVisible = false;
                     return;
                 }
                 this.register();

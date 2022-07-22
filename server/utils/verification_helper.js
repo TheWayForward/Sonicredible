@@ -226,7 +226,7 @@ class VerificationHelper {
     }
 
     static numberVerification(number) {
-        return /^[0-9]*$ /.test(number);
+        return /^[0-9]\d*$/.test(number);
     }
 }
 

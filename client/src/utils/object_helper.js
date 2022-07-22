@@ -70,7 +70,14 @@ class ObjectHelper {
         return lodash.cloneDeep(obj);
     }
 
-    static object_equal = (obj_1, obj_2) => lodash.isEqual(obj_1, obj_2);
+    static stringIsJSON(str) {
+        try {
+            JSON.parse(str);
+            return true;
+        } catch (err) {
+            return false;
+        }
+    }
 
 }
 

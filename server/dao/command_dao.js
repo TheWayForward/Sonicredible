@@ -8,6 +8,33 @@ const VerificationHelper = require("../utils/verification_helper");
 
 class CommandDao {
 
+    static containsParam(content) {
+        return content.indexOf("?") !== -1;
+    }
+
+    static extractParams(wordList) {
+        let filteredList = wordList.filter((word) => {
+            return VerificationHelper.numberVerification(word.Word);
+        });
+        let paramList = [];
+        filteredList.forEach((item) => {
+            paramList.push(item.Word);
+        });
+        return paramList;
+    }
+
+    static setParams(commandData, params) {
+        let flag = 0;
+        let content = commandData.content.split("");
+        for (let i = 0; i < content.length; i++) {
+            if (content[i] === "?") {
+                content[i] = params[flag++];
+            }
+        }
+        commandData.content = content.join("");
+        return commandData;
+    }
+
     static async selectCommand(id) {
         let sql = SQL.generateSQL(SQL.selectById({table_name: "audio_command", id: id}));
         return await Query.query(sql.sql);
@@ -29,6 +56,21 @@ class CommandDao {
         };
     }
 
+    static async register({keyword, description, content}) {
+        let params = {keyword, description, content};
+        let sql = SQL.generateSQL(SQL.insert({
+            table_name: "audio_command",
+            params: params
+        }), [keyword, description, content]);
+        return await Query.query(sql.sql, sql.params);
+    }
+
+    static async update({keyword, description, content, id}) {
+        let params = {keyword, description, content, id};
+        let sql = SQL.generateSQL(SQL.update({table_name: "audio_command", params: params, condition: `WHERE id = ?`}), [keyword, description, content, id]);
+        return await Query.query(sql.sql, sql.params);
+    }
+
     static async matchCommandsByKeyword(wordList) {
         // a word list
         // [
@@ -41,34 +83,18 @@ class CommandDao {
         let sqls = [];
         let params = [];
         wordList.forEach((word) => {
-            sqls.push(SQL.fuzzySearch({keyword: word.Word, table_name: "audio_command", column: "keyword", condition: "AND is_valid = 1"}));
+            sqls.push(SQL.fuzzySearch({
+                keyword: word.Word,
+                table_name: "audio_command",
+                column: "keyword",
+                condition: "AND is_valid = 1"
+            }));
             params.push([]);
         });
         return await Transaction.transaction(sqls, params);
     }
-}
 
-async function test() {
-    let wordList = [
-        {Word: '调整', StartTime: 0, EndTime: 510},
-        {Word: 'led', StartTime: 510, EndTime: 1230},
-        {Word: '亮度', StartTime: 1230, EndTime: 1830},
-        {Word: '至', StartTime: 1920, EndTime: 2250},
-        {Word: '127', StartTime: 2610, EndTime: 3390}
-    ];
-    let result = await CommandDao.matchCommandsByKeyword(wordList);
-    let count = [];
-    result.forEach((sub) => {
-        sub.forEach((item) => {
-            count.push(item.id);
-        })
-    });
-    let id = Number(ObjectHelper.findMost(count));
-    result = await CommandDao.selectCommand(id);
-    console.log(result);
-    return;
-}
 
-test();
+}
 
 module.exports = CommandDao;

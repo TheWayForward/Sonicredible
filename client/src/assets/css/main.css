@@ -70,7 +70,7 @@ a {
     margin-bottom: 20px;
 }
 
-.el-button+.el-tooltip {
+.el-button + .el-tooltip {
     margin-left: 10px;
 }
 
@@ -195,7 +195,7 @@ a {
     border-radius: 3px;
 }
 
-.shadow-filter{
+.shadow-filter {
     box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px -1px,
     rgb(0 0 0 / 14%) 0px 4px 5px 0px,
     rgb(0 0 0 / 12%) 0px 1px 10px 0px;
@@ -208,4 +208,9 @@ a {
 
 .red {
     color: #D6251F;
+}
+
+
+.el-textarea__inner{
+    resize: none;
 }

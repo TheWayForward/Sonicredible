@@ -212,8 +212,23 @@ class VerificationHelper {
         }
     }
 
-    static constainsSpace(s) {
-        return !/^[^\s]*$/.test(s);
+    static jsonStringWithParamVerification(str) {
+        let replacedStr = str.replaceAll("?", "0");
+        try {
+            JSON.parse(replacedStr);
+            return {
+                has_error: false
+            }
+        } catch (err) {
+            return {
+                has_error: true,
+                detail: "带参数JSON字符串格式错误！"
+            }
+        }
+    }
+
+    static constainsSpace(str) {
+        return !/^[^\s]*$/.test(str);
     }
 
     static priceVerification(price) {
@@ -224,7 +239,7 @@ class VerificationHelper {
     static quantityVerification(quantity) {
         return /^[1-9]\d*$/.test(quantity);
     }
-    
+
 }
 
 export default VerificationHelper;

@@ -54,7 +54,6 @@ class UserDao {
     static async update({realname, nickname, avatar, tel, email, id}) {
         let params = {realname, nickname, avatar, tel, email, id};
         let sql = SQL.generateSQL(SQL.update({table_name: "user", params: params, condition: `WHERE id = ?`}), [realname, nickname, avatar, tel, email, id]);
-        console.log(sql);
         return await Query.query(sql.sql, sql.params);
     }
 

@@ -84,7 +84,19 @@
             </el-dialog>
 
             <el-dialog title="指令转换" v-model="audioInstructionDialogVisible" width="50%" :close-on-click-modal="false">
-
+                <el-descriptions
+                        direction="vertical"
+                        :column="1"
+                        size="small"
+                        border
+                >
+                    <el-descriptions-item label="指令关键词">
+                        <code class="javaScript">{{dialog.audioInstructionDialog.keyword}}</code>
+                    </el-descriptions-item>
+                    <el-descriptions-item label="控制信息">
+                        <code class="javaScript">{{dialog.audioInstructionDialog.content}}</code>
+                    </el-descriptions-item>
+                </el-descriptions>
             </el-dialog>
 
 
@@ -158,6 +170,8 @@
                     });
                     this.audioList = audioList;
                     this.audioTableLoading = false;
+                } else {
+                    ElMessage.warning(result.message);
                 }
             },
 
@@ -177,7 +191,7 @@
             async audioInstruction(audio_id) {
                 let result = await audioInstructionByAudioId(audio_id);
                 if (result.code === EnumHelper.HTTPStatus.OK) {
-                    ElMessage.success(result.message);
+                    this.dialog.audioInstructionDialog = ObjectHelper.cloneObject(result.info);
                 } else {
                     ElMessage.warning(result.message);
                 }

@@ -3,6 +3,7 @@ const Multiparty = require("multiparty");
 const router = express.Router();
 
 const AudioDao = require("../dao/audio_dao");
+const CommandDao = require("../dao/command_dao");
 
 const MessageHelper = require("../utils/message_helper");
 const CryptoHelper = require("../utils/crypto_helper");
@@ -13,6 +14,7 @@ const PermissionHelper = require("../utils/permission_helper");
 const StringHelper = require("../utils/string_helper");
 const FileHelper = require("../utils/file_helper");
 const SerialHelper = require("../utils/serial_helper");
+const ObjectHelper = require("../utils/object_helper");
 const TencentCloudHelper = require("../utils/tencent_cloud_helper");
 
 router.post("/recognition", PermissionHelper.tokenVerification, async (req, res) => {
@@ -28,7 +30,10 @@ router.post("/recognition", PermissionHelper.tokenVerification, async (req, res)
             }));
         } else {
             let audioData = result[0];
-            let recognitionResult = await TencentCloudHelper.sentenceRecognition({userAudioKey: audioData.serial, audioFileDirectory: audioData.url});
+            let recognitionResult = await TencentCloudHelper.sentenceRecognition({
+                userAudioKey: audioData.serial,
+                audioFileDirectory: audioData.url
+            });
             result = await AudioDao.updateResult({result: JSON.stringify(recognitionResult), id: audio_id});
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: recognitionResult}));
         }
@@ -64,14 +69,49 @@ router.post("/instruction", PermissionHelper.tokenVerification, async (req, res)
         } else {
             let audioData = result[0];
             audioData.result = JSON.parse(audioData.result);
+            if (!audioData.result.hasOwnProperty("RequestId")) {
+                res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.audio_instruction_unabled}));
+                return;
+            }
             let wordList = audioData.result.WordList;
-
-            console.log(wordList);
-            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: result[0]}));
+            result = await CommandDao.matchCommandsByKeyword(wordList);
+            console.log(result);
+            let count = [];
+            result.forEach((sub) => {
+                sub.forEach((item) => {
+                    count.push(item.id);
+                });
+            });
+            if (!count.length) {
+                res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.audio_instruction_failed}));
+                return;
+            }
+            result = await CommandDao.selectCommand(Number(ObjectHelper.findMost(count)));
+            let commandData = result[0];
+            if (!CommandDao.containsParam(commandData.content)) {
+                // command without param
+                res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
+                    info: {
+                        id: commandData.id,
+                        keyword: commandData.keyword,
+                        content: commandData.content
+                    }
+                }));
+            } else {
+                let params = CommandDao.extractParams(wordList);
+                commandData = CommandDao.setParams(commandData, params);
+                res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
+                    info: {
+                        id: commandData.id,
+                        keyword: commandData.keyword,
+                        content: commandData.content
+                    }
+                }));
+            }
         }
     } catch (err) {
         console.log(err);
-        res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
+        res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.audio_instruction_failed}));
     }
 });
 
