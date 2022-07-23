@@ -44,7 +44,7 @@ class MessageHelper {
     static image_upload_success = "图片上传成功！";
 
     // audio
-    static audio_empty = "未找到对应ID的音频！";
+    static audio_empty = "未找到对应音频！";
     static audio_instruction_unabled = "音频尚未进行语义识别，不能转换为指令！";
     static audio_instruction_failed = "无对应关键词或指令被禁用，转换失败！";
 

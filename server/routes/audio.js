@@ -97,9 +97,63 @@ router.post("/instruction", PermissionHelper.tokenVerification, async (req, res)
             console.log(result.message);
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
                 info: {
-                    id: commandData.id,
                     keyword: commandData.keyword,
                     content: commandData.content
+                }
+            }));
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.audio_instruction_failed}));
+    }
+});
+
+router.post("/command", PermissionHelper.tokenVerification, async (req, res) => {
+    try {
+        let tokenData = JWTHelper.parseToken(req);
+        let user_id = tokenData.user_id;
+        let data = req.body;
+        let serial = data.serial;
+        let result = await AudioDao.selectAudioBySerial(serial);
+        if (!result.length) {
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.audio_empty}));
+        } else {
+            let audioData = result[0];
+            if (audioData.result === "{}") {
+                let recognitionResult = await TencentCloudHelper.sentenceRecognition({
+                    userAudioKey: audioData.serial,
+                    audioFileDirectory: audioData.url
+                });
+                audioData.result = recognitionResult;
+                await AudioDao.updateResult({result: JSON.stringify(recognitionResult), id: audioData.id});
+            } else {
+                audioData.result = JSON.parse(audioData.result);
+            }
+            // audioData.result should be usable here
+            let wordList = audioData.result.WordList;
+            result = await CommandDao.matchCommandsByKeyword(wordList);
+            let count = [];
+            result.forEach((sub) => {
+                sub.forEach((item) => {
+                    count.push(item.id);
+                });
+            });
+            if (!count.length) {
+                res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.audio_instruction_failed}));
+                return;
+            }
+            result = await CommandDao.selectCommand(Number(ObjectHelper.findMost(count)));
+            let commandData = result[0];
+            if (CommandDao.containsParam(commandData.content)) {
+                let params = CommandDao.extractParams(wordList);
+                commandData = CommandDao.setParams(commandData, params);
+            }
+            result = await HardwareRequest.excute(JSON.parse(commandData.content));
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
+                info: {
+                    keyword: commandData.keyword,
+                    content: commandData.content,
+                    hardware: result
                 }
             }));
         }

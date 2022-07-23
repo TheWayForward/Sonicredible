@@ -20,29 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbb11193-b146-4407-b32b-122a42367e42" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/hardware.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/message_helper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/dao/voiceprint_dao.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/requests/hardware.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/routes/voiceprint.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/audio_command_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_command_management.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/views/audio_print_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_print_management.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/audio_recognition_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_recognition_management.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino/executor/executor.ino" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/dao/audio_dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/dao/audio_dao.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/routes/audio.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/audio.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/routes/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/utils/ajax_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/ajax_helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/utils/enum_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/enum_helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/utils/jwt_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/jwt_helper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/utils/message_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/message_helper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,7 +93,8 @@
       <option name="presentableId" value="Default" />
       <updated>1658558015131</updated>
       <workItem from="1658558016826" duration="5131000" />
-      <workItem from="1658577078817" duration="611000" />
+      <workItem from="1658577078817" duration="1770000" />
+      <workItem from="1658593392849" duration="706000" />
     </task>
     <servers />
   </component>
@@ -130,22 +114,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1814" height="172" key="GridCell.Tab.0.bottom" timestamp="1658563644833">
+    <state width="1814" height="172" key="GridCell.Tab.0.bottom" timestamp="1658593971842">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="172" key="GridCell.Tab.0.bottom/0.0.1857.1080@0.0.1857.1080" timestamp="1658563644833" />
-    <state width="1814" height="172" key="GridCell.Tab.0.center" timestamp="1658563644833">
+    <state width="1814" height="172" key="GridCell.Tab.0.bottom/0.0.1857.1080@0.0.1857.1080" timestamp="1658593971842" />
+    <state width="1814" height="172" key="GridCell.Tab.0.center" timestamp="1658593971841">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="172" key="GridCell.Tab.0.center/0.0.1857.1080@0.0.1857.1080" timestamp="1658563644833" />
-    <state width="1814" height="172" key="GridCell.Tab.0.left" timestamp="1658563644833">
+    <state width="1814" height="172" key="GridCell.Tab.0.center/0.0.1857.1080@0.0.1857.1080" timestamp="1658593971841" />
+    <state width="1814" height="172" key="GridCell.Tab.0.left" timestamp="1658593971841">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="172" key="GridCell.Tab.0.left/0.0.1857.1080@0.0.1857.1080" timestamp="1658563644833" />
-    <state width="1814" height="172" key="GridCell.Tab.0.right" timestamp="1658563644833">
+    <state width="1814" height="172" key="GridCell.Tab.0.left/0.0.1857.1080@0.0.1857.1080" timestamp="1658593971841" />
+    <state width="1814" height="172" key="GridCell.Tab.0.right" timestamp="1658593971841">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="172" key="GridCell.Tab.0.right/0.0.1857.1080@0.0.1857.1080" timestamp="1658563644833" />
+    <state width="1814" height="172" key="GridCell.Tab.0.right/0.0.1857.1080@0.0.1857.1080" timestamp="1658593971841" />
     <state x="591" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1658558887412">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>

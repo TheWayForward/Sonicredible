@@ -9,7 +9,7 @@ const EnumHelper = require("./utils/enum_helper");
 const MessageHelper = require("./utils/message_helper");
 const ResponseHelper = require("./utils/response_helper");
 
-const board = new five.Board(Config.hardwarePort);
+const board = new five.Board({port: Config.hardwarePort});
 
 board.on("ready", () => {
 
@@ -21,8 +21,9 @@ board.on("ready", () => {
             let data = req.body;
             let commandContent = data.command_content;
             if (commandContent.device === "LED") {
-                console.log(Math.abs(commandContent.brightness) % 256);
-                led.brightness(Math.abs(commandContent.brightness) % 256);
+                let brightness = Math.abs(commandContent.brightness) % 256;
+                led.brightness(brightness);
+                console.log(`LED brightness set to ${brightness}`);
             }
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({message: MessageHelper.device_execute_successful}));
         } catch (err) {
@@ -32,6 +33,17 @@ board.on("ready", () => {
 
     });
 
-    app.listen(Config.port);
+    // blink signals ready
+    led.blink(500);
+    setTimeout(() => {
+        led.stop().off();
+
+        // start command listening
+        app.listen(Config.port);
+    }, 2000);
+
+    board.on("exit", () => {
+        led.stop().off();
+    });
 
 });

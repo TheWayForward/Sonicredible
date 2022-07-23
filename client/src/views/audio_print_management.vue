@@ -48,7 +48,7 @@
                 </el-table-column>
             </el-table>
 
-            <el-dialog title="新建声纹" v-model="voiceprintRegisterDialogVisible" width="50%" :close-on-click-modal="false">
+            <el-dialog title="注册/更新声纹" v-model="voiceprintRegisterDialogVisible" width="50%" :close-on-click-modal="false">
 
                 <el-form label-width="100px" size="small">
                     <el-form-item label="音频文件">
@@ -143,7 +143,7 @@
                 },
 
                 indicator: {
-                    voiceprintRegisterButton: `注册或更新您的声纹（当前用户：${localStorage.getItem(EnumHelper.localStorageItem.username)}，${localStorage.getItem(EnumHelper.localStorageItem.realname)}）！`,
+                    voiceprintRegisterButton: `注册或更新您的声纹（当前用户：${localStorage.getItem(EnumHelper.localStorageItem.username)}，${localStorage.getItem(EnumHelper.localStorageItem.realname)}）`,
                     voiceprintRegisterDialog: {
                         voiceprint: "请上传不大于500KB的MP3音频！"
                     }

@@ -14,6 +14,11 @@ class AudioDao {
         return await Query.query(sql.sql);
     }
 
+    static async selectAudioBySerial(serial) {
+        let sql = SQL.generateSQL(SQL.select({table_name: "audio_recognition", condition: `WHERE serial = ${serial}`}));
+        return await Query.query(sql.sql);
+    }
+
     static async selectAudios(page_index) {
         let sql = SQL.generateSQL(SQL.select({
             table_name: "audio_recognition",
