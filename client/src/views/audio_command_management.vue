@@ -258,8 +258,10 @@
                 this.$forceUpdate();
             },
 
-            handleCommandPaginationCurrentClick() {
-
+            async handleCommandPaginationCurrentClick(current) {
+                this.commandTableLoading = true;
+                this.pageIndex = parseInt(current) - 1;
+                await this.getCommands();
             }
         },
 

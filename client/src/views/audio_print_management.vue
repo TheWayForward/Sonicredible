@@ -245,8 +245,10 @@
                 window.open(e, '_blank');
             },
 
-            handleVoiceprintPaginationCurrentClick() {
-
+            async handleVoiceprintPaginationCurrentClick(current) {
+                this.voiceprintTableLoading = true;
+                this.pageIndex = parseInt(current) - 1;
+                await this.getVoiceprints();
             }
 
         },

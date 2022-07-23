@@ -10,10 +10,28 @@
         </div>
 
         <el-card shadow="hover">
+            <div style="margin-bottom: 20px;">
+                <el-button type="primary" size="small" @click="handleAudioUploadDialog">上传音频</el-button>
+            </div>
+
             <el-table border :data="audioList" style="width: 100%;"
                       v-loading="audioTableLoading" size="small">
                 <el-table-column align="center" prop="id" label="音频ID" width="100"/>
                 <el-table-column align="center" prop="user_id" label="用户ID" width="100"/>
+                <el-table-column align="center" label="序列号" width="250">
+                    <template #default="scope">
+                        <el-tooltip
+                                class="box-item"
+                                effect="dark"
+                                content="点击复制"
+                                placement="top"
+                        >
+                            <el-button size="small" @click="handleCopy(scope.row.serial)" style="width: 80%;">
+                                {{scope.row.serial}}
+                            </el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
                 <el-table-column label="base64编码" align="center" width="250">
                     <template #default="scope">
                         <el-tooltip
@@ -37,7 +55,7 @@
                                 placement="top"
                         >
                             <el-button size="small" @click="handleCopy(scope.row.url)">
-                                {{scope.row.url}}
+                                {{scope.row.url.slice(0, 30) + "..."}}
                             </el-button>
                         </el-tooltip>
                     </template>
@@ -52,6 +70,32 @@
                     </template>
                 </el-table-column>
             </el-table>
+
+            <el-dialog title="上传音频" v-model="audioUploadDialogVisible" width="50%" :close-on-click-modal="false">
+
+                <el-form label-width="100px" size="small">
+                    <el-form-item label="音频文件">
+                        <el-upload
+                                :on-change="handleAudioChange"
+                                :on-remove="handleAudioRemove"
+                                :file-list="fileList.testUpload.tempAudioList"
+                                :limit="1"
+                                :auto-upload="false"
+                                action="#">
+                            <template #default>
+                                <el-tooltip
+                                        class="box-item"
+                                        effect="dark"
+                                        :content="indicator.audioUploadDialog.audio"
+                                        placement="bottom"
+                                >
+                                    <i class="el-icon-lx-roundadd" style="font-size: 50px; margin-top: 60px;"></i>
+                                </el-tooltip>
+                            </template>
+                        </el-upload>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
 
             <el-dialog title="语义识别" v-model="audioRecognitionDialogVisible" width="50%" :close-on-click-modal="false">
                 <div style="margin-bottom: 20px;"
@@ -99,6 +143,15 @@
                 </el-descriptions>
             </el-dialog>
 
+            <el-pagination
+                    small
+                    background
+                    style="margin-top: 20px;"
+                    :page-size="audioPageSize"
+                    layout="total, prev, pager, next"
+                    :total="totalAudio"
+                    @current-change="handleAudioPaginationCurrentClick"
+            />
 
         </el-card>
 
@@ -107,7 +160,13 @@
 
 <script>
     import {ElMessage} from "element-plus";
-    import {audioRecognitionByAudioId, getAudios, audioInstructionByAudioId} from "../api/index";
+    import {
+        audioRecognitionByAudioId,
+        getAudios,
+        audioInstructionByAudioId,
+        uploadVoiceprint,
+        uploadAudioRecognition
+    } from "../api/index";
     import EnumHelper from "../utils/enum_helper";
     import TimeHelper from "../utils/time_helper";
     import UrlHelper from "../utils/url_helper";
@@ -128,6 +187,7 @@
                 audioTableLoading: true,
                 audioRecognitionDialogButtonLoading: false,
 
+                audioUploadDialogVisible: false,
                 audioRecognitionDialogVisible: false,
                 audioInstructionDialogVisible: false,
 
@@ -136,6 +196,18 @@
                         result: ""
                     },
                     audioInstructionDialog: {}
+                },
+
+                indicator: {
+                    audioUploadDialog: {
+                        audio: "请上传不大于500KB的MP3音频！"
+                    }
+                },
+
+                fileList: {
+                    testUpload: {
+                        tempAudioList: []
+                    }
                 },
 
             }
@@ -152,6 +224,10 @@
         },
 
         methods: {
+
+            handleAudioUploadDialog() {
+                this.audioUploadDialogVisible = true;
+            },
 
             async getAudios() {
                 let result = await getAudios(this.pageIndex);
@@ -225,6 +301,41 @@
                 window.open(e, '_blank');
             },
 
+            async handleAudioChange(res, file) {
+                let tempFile = res;
+                console.log(tempFile);
+                if (tempFile.raw.type !== EnumHelper.audioType.MP3) {
+                    ElMessage.warning("只能上传MP3格式的音频！");
+                    return;
+                }
+                if (VersatileHelper.byteToSize(tempFile.raw.size) > 0.5) {
+                    ElMessage.warning("音频不能大于500KB！");
+                    return;
+                }
+                let form = new FormData();
+                form.append(EnumHelper.formField.audio, tempFile.raw);
+                let result = await uploadAudioRecognition(form);
+                if (result.code === EnumHelper.HTTPStatus.OK) {
+                    console.log(result);
+                    ElMessage.success(MessageHelper.upload.success);
+                    let url = result.info.path;
+                    file[file.length - 1].url = url;
+                    this.fileList.testUpload.tempAudioList.push({
+                        url: UrlHelper.parseUrl(url),
+                        name: (this.fileList.testUpload.tempAudioList.length + 1).toString()
+                    });
+                    console.log(this.fileList.testUpload.tempAudioList);
+                    await this.getAudios();
+                    this.audioUploadDialogVisible = false;
+                } else {
+                    ElMessage.warning(result.message);
+                }
+            },
+
+            handleAudioRemove(res, file) {
+
+            },
+
             handleCopy(e) {
                 let result = VersatileHelper.copyContent(e);
                 if (result) {
@@ -232,6 +343,12 @@
                 } else {
                     ElMessage.warning(MessageHelper.copy.failed);
                 }
+            },
+
+            async handleAudioPaginationCurrentClick(current) {
+                this.audioTableLoading = true;
+                this.pageIndex = parseInt(current) - 1;
+                await this.getAudios();
             }
 
         },

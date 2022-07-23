@@ -20,13 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbb11193-b146-4407-b32b-122a42367e42" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../client/src/views/audio_command_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_command_management.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/views/audio_print_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_print_management.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/views/audio_recognition_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_recognition_management.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/views/user_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/user_management.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/dao/audio_dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/dao/audio_dao.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/routes/audio.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/audio.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/utils/message_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/message_helper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +93,7 @@
       <updated>1658558015131</updated>
       <workItem from="1658558016826" duration="5131000" />
       <workItem from="1658577078817" duration="1770000" />
-      <workItem from="1658593392849" duration="706000" />
+      <workItem from="1658593392849" duration="1258000" />
     </task>
     <servers />
   </component>

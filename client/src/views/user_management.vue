@@ -429,8 +429,10 @@
                 this.userUpdateDialogVisible = true;
             },
 
-            handleUserPaginationCurrentClick() {
-
+            async handleUserPaginationCurrentClick(current) {
+                this.userTableLoading = true;
+                this.pageIndex = parseInt(current) - 1;
+                await this.getUsers();
             }
 
         },
