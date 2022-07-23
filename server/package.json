@@ -14,7 +14,9 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-rate-limit": "^6.4.0",
+    "firmata": "^2.3.0",
     "http-errors": "~1.6.3",
+    "johnny-five": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
     "kardia": "^0.14.0",
     "loadsh": "^0.0.4",
@@ -28,6 +30,7 @@
     "nodemailer": "^6.7.7",
     "process": "^0.11.10",
     "pug": "2.0.0-beta11",
+    "serialport": "^10.4.0",
     "tencentcloud-sdk-nodejs": "^4.0.381"
   },
   "devDependencies": {

@@ -49,8 +49,7 @@ class EnumHelper {
             avatar: "public/images/avatar",
         },
         audios: {
-            recognition: "public/audios/recognition",
-            voiceprint: "public/audios/voiceprint"
+            recognition: "public/audios/recognition"
         }
     }
 }

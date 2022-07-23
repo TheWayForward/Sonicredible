@@ -93,7 +93,17 @@ export const commandUpdate = () => ajax({
     method: EnumHelper.HTTPMethod.POST
 });
 
+export const getVoiceprints = (page_index) => ajax({
+    url: `${BASE_URL}/voiceprint/get_voiceprints`,
+    params: {
+        page_index: page_index
+    },
+    method: EnumHelper.HTTPMethod.POST
+});
+
 export const uploadAvatar = (form) => ajax_fileupload(`${BASE_URL}/upload/avatar`, form);
+
+export const uploadVoiceprint = (form) => ajax_fileupload(`${BASE_URL}/upload/voiceprint`, form);
 
 export const uploadAudioRecognition = (form) => ajax_fileupload(`${BASE_URL}/upload/audio_recognition`, form);
 

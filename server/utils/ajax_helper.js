@@ -1,5 +1,5 @@
 const axios = require("axios");
-const EnumHelper = require("enum_helper");
+const EnumHelper = require("./enum_helper");
 
 class AjaxHelper {
 

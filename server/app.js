@@ -23,6 +23,7 @@ const userRouter = require("./routes/user");
 const uploadRouter = require("./routes/upload");
 const audioRouter = require("./routes/audio");
 const commandRouter = require("./routes/command");
+const voiceprintRouter = require("./routes/voiceprint");
 
 const app = express();
 
@@ -54,6 +55,7 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/upload", uploadRouter);
 app.use("/api/v1/audio", audioRouter);
 app.use("/api/v1/command", commandRouter);
+app.use("/api/v1/voiceprint", voiceprintRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

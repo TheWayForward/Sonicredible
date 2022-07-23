@@ -1,6 +1,6 @@
 const JWT = require('jsonwebtoken');
 const Config = require("../config");
-const expire_time = 1000 * 60 * 60 * 24;
+const expire_time = 1000 * 60 * 60 * 24 * 7;
 
 class JWTHelpler {
 

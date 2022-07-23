@@ -94,8 +94,8 @@
                             placeholder="Code goes here..."
                             style="height: 200px;"
                             :autofocus="true"
-                            :indent-with-tab="true"
-                            :tab-size="4"
+                            :indent-with-tab="false"
+                            :tab-size="2"
                 />
             </el-dialog>
 

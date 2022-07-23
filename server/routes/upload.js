@@ -4,6 +4,7 @@ const router = express.Router();
 
 const UserDao = require("../dao/user_dao");
 const AudioDao = require("../dao/audio_dao");
+const VoiceprintDao = require("../dao/voiceprint_dao");
 
 const MessageHelper = require("../utils/message_helper");
 const CryptoHelper = require("../utils/crypto_helper");
@@ -26,6 +27,27 @@ router.post("/avatar", PermissionHelper.tokenVerification, (req, res) => {
                 res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
             }
             let path = StringHelper.directoryRevision("" + files[EnumHelper.formField.avatar][0]["path"]);
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: {path: path}}));
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
+    }
+});
+
+router.post("/voiceprint", PermissionHelper.tokenVerification, async (req, res) => {
+    try {
+        let tokenData = JWTHelper.parseToken(req);
+        let user_id = tokenData.user_id;
+        let form = new Multiparty.Form();
+        form.uploadDir = EnumHelper.directory.audios.voiceprint;
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                console.log(err);
+                res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
+            }
+            let path = StringHelper.directoryRevision("" + files[EnumHelper.formField.audio][0]["path"]);
+            let result = await VoiceprintDao.insertVoiceprint({user_id: user_id, url: path});
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: {path: path}}));
         });
     } catch (err) {

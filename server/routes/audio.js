@@ -5,6 +5,8 @@ const router = express.Router();
 const AudioDao = require("../dao/audio_dao");
 const CommandDao = require("../dao/command_dao");
 
+const HardwareRequest = require("../requests/hardware");
+
 const MessageHelper = require("../utils/message_helper");
 const CryptoHelper = require("../utils/crypto_helper");
 const ResponseHelper = require("../utils/response_helper");
@@ -75,7 +77,6 @@ router.post("/instruction", PermissionHelper.tokenVerification, async (req, res)
             }
             let wordList = audioData.result.WordList;
             result = await CommandDao.matchCommandsByKeyword(wordList);
-            console.log(result);
             let count = [];
             result.forEach((sub) => {
                 sub.forEach((item) => {
@@ -88,26 +89,19 @@ router.post("/instruction", PermissionHelper.tokenVerification, async (req, res)
             }
             result = await CommandDao.selectCommand(Number(ObjectHelper.findMost(count)));
             let commandData = result[0];
-            if (!CommandDao.containsParam(commandData.content)) {
-                // command without param
-                res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
-                    info: {
-                        id: commandData.id,
-                        keyword: commandData.keyword,
-                        content: commandData.content
-                    }
-                }));
-            } else {
+            if (CommandDao.containsParam(commandData.content)) {
                 let params = CommandDao.extractParams(wordList);
                 commandData = CommandDao.setParams(commandData, params);
-                res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
-                    info: {
-                        id: commandData.id,
-                        keyword: commandData.keyword,
-                        content: commandData.content
-                    }
-                }));
             }
+            result = await HardwareRequest.excute(JSON.parse(commandData.content));
+            console.log(result.message);
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
+                info: {
+                    id: commandData.id,
+                    keyword: commandData.keyword,
+                    content: commandData.content
+                }
+            }));
         }
     } catch (err) {
         console.log(err);

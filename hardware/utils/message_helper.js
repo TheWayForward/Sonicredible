@@ -1,5 +1,3 @@
-const Config = require("../config");
-
 class MessageHelper {
     // server
     static internal_error = "操作失敗，內部錯誤！";
@@ -48,15 +46,14 @@ class MessageHelper {
     static audio_instruction_unabled = "音频尚未进行语义识别，不能转换为指令！";
     static audio_instruction_failed = "无对应关键词或指令被禁用，转换失败！";
 
-    // voiceprint
-    static voiceprint_unregistered = "该用户尚未注册声纹！";
-
     // command
     static command_keyword_duplicate = "指令关键词已被注册！";
 
     // device
     static  device_unauthorized = "非法获取设备信息！";
     static  device_empty = "尚无设备！";
+    static device_execute_successful = "硬件端：指令执行成功！";
+    static device_execute_failed = "硬件端：指令执行失败！";
 
     // verification
     static ultra_vires = "越权访问！";

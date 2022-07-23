@@ -192,6 +192,7 @@
                 let result = await audioInstructionByAudioId(audio_id);
                 if (result.code === EnumHelper.HTTPStatus.OK) {
                     this.dialog.audioInstructionDialog = ObjectHelper.cloneObject(result.info);
+                    console.log(this.dialog.audioInstructionDialog);
                 } else {
                     ElMessage.warning(result.message);
                 }
