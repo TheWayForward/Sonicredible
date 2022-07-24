@@ -14,6 +14,8 @@
                 <el-button type="primary" size="small" @click="handleAudioUploadDialog">上传音频</el-button>
             </div>
 
+            <el-divider />
+
             <el-table border :data="audioList" style="width: 100%;"
                       v-loading="audioTableLoading" size="small">
                 <el-table-column align="center" prop="id" label="音频ID" width="100"/>

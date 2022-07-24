@@ -46,7 +46,7 @@ const routes = [
                 path: "/audio_command_management",
                 name: "audio_command_management",
                 meta: {
-                    title: "语义识别音频管理"
+                    title: "音频指令管理"
                 },
                 component: () => import("../views/audio_command_management.vue")
             },

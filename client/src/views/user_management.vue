@@ -13,6 +13,9 @@
             <div style="margin-bottom: 20px;">
                 <el-button type="primary" size="small" @click="userRegisterDialogVisible = true">新建用户</el-button>
             </div>
+
+            <el-divider />
+
             <el-table border :data="userList" style="width: 100%;"
                       v-loading="userTableLoading" size="small">
                 <el-table-column align="center" prop="id" label="用户ID" width="100"/>

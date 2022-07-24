@@ -14,6 +14,8 @@
                 <el-button type="primary" size="small" @click="handleCommandRegisterDialog">新建指令</el-button>
             </div>
 
+            <el-divider />
+
             <el-table border :data="commandList" style="width: 100%;"
                       v-loading="commandTableLoading" size="small">
                 <el-table-column align="center" prop="id" label="指令ID" width="100"/>

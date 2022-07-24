@@ -21,6 +21,8 @@
                 </el-tooltip>
             </div>
 
+            <el-divider />
+
             <el-table border :data="voiceprintList" style="width: 100%;"
                       v-loading="voiceprintTableLoading" size="small">
                 <el-table-column align="center" prop="id" label="声纹ID" width="100"/>
