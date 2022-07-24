@@ -53,35 +53,12 @@
                         {
                             index: "/user_management",
                             title: "用户管理"
-                        },
-                        {
-                            index: "/user_log",
-                            title: "用户日志"
-                        }
-                    ]
-                },
-                {
-                    icon: "el-icon-set-up",
-                    index: "1",
-                    title: "设备管理",
-                    subs: [
-                        {
-                            index: "/device_management",
-                            title: "设备管理"
-                        },
-                        {
-                            index: "/device_command",
-                            title: "设备指令"
-                        },
-                        {
-                            index: "/device_log",
-                            title: "设备日志"
                         }
                     ]
                 },
                 {
                     icon: "el-icon-mic",
-                    index: "2",
+                    index: "1",
                     title: "音频管理",
                     subs: [
                         {

@@ -118,7 +118,7 @@
     import {ElMessage} from "element-plus";
     import {Codemirror} from "vue-codemirror";
     import VersatileHelper from "../utils/versatile_helper";
-    import {getCommands, commandRegister, commandUpdate} from "../api/index";
+    import {getCommands, commandRegister, commandUpdate, commandSwitch} from "../api/index";
     import MessageHelper from "../utils/message_helper";
     import UrlHelper from "../utils/url_helper";
     import TimeHelper from "../utils/time_helper";
@@ -218,10 +218,13 @@
 
             async enableCommand(e) {
                 let command_id = e.command.id;
-                if (e.enable) {
-                    ElMessage.success("")
+                let is_valid = e.enable ? 1 : 0;
+                let result = await commandSwitch({id: command_id, is_valid: is_valid});
+                if (result.code === 200) {
+                    ElMessage.success(result.message);
+                    await this.getCommands();
                 } else {
-                    ElMessage.error("")
+                    ElMessage.warning(result.message);
                 }
             },
 

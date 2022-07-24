@@ -67,6 +67,12 @@ export const audioInstructionByAudioId = (audio_id) => ajax({
     method: EnumHelper.HTTPMethod.POST
 });
 
+export const audioCommand = (audio_serial) => ajax({
+    url: `${BASE_URL}/audio/command`,
+    params: {serial: audio_serial},
+    method: EnumHelper.HTTPMethod.POST
+});
+
 export const getCommands = (page_index) => ajax({
     url: `${BASE_URL}/command/get_commands`,
     params: {
@@ -89,6 +95,15 @@ export const commandUpdate = () => ajax({
     url: `${BASE_URL}/command/update`,
     params: {
 
+    },
+    method: EnumHelper.HTTPMethod.POST
+});
+
+export const commandSwitch = ({id, is_valid}) => ajax({
+    url: `${BASE_URL}/command/switch`,
+    params: {
+        id: id,
+        is_valid: is_valid
     },
     method: EnumHelper.HTTPMethod.POST
 });

@@ -97,6 +97,7 @@ router.post("/instruction", PermissionHelper.tokenVerification, async (req, res)
             // console.log(result.message);
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
                 info: {
+                    audio_serial: audioData.serial,
                     keyword: commandData.keyword,
                     content: commandData.content
                 }

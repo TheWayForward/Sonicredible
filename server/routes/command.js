@@ -46,16 +46,13 @@ router.post("/get_commands", PermissionHelper.tokenVerification, PermissionHelpe
     }
 });
 
-router.post("/enable", PermissionHelper.tokenVerification, PermissionHelper.managerVerification, async (req, res) => {
+router.post("/switch", PermissionHelper.tokenVerification, PermissionHelper.managerVerification, async (req, res) => {
     try {
         let data = req.body;
-        let command_id = data.command_id;
-        let enable = data.enable;
-        if (enable) {
-            // enable
-        } else {
-            // disable
-        }
+        let command_id = data.id;
+        let is_valid = data.is_valid;
+        let result = await CommandDao.switch({is_valid: is_valid, id: command_id});
+        res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({}));
     } catch (err) {
         console.log(err);
         res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));

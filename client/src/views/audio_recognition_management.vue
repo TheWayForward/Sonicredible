@@ -141,6 +141,9 @@
                         <code class="javaScript">{{dialog.audioInstructionDialog.content}}</code>
                     </el-descriptions-item>
                 </el-descriptions>
+
+                <el-button style="margin-top: 20px;" type="primary" size="small" v-if="dialog.audioInstructionDialog.audio_serial" v-loading="audioInstructionDialogButtonLoading" @click="audioInstructionTest">测试</el-button>
+
             </el-dialog>
 
             <el-pagination
@@ -164,8 +167,7 @@
         audioRecognitionByAudioId,
         getAudios,
         audioInstructionByAudioId,
-        uploadVoiceprint,
-        uploadAudioRecognition
+        uploadAudioRecognition, audioCommand
     } from "../api/index";
     import EnumHelper from "../utils/enum_helper";
     import TimeHelper from "../utils/time_helper";
@@ -186,6 +188,7 @@
 
                 audioTableLoading: true,
                 audioRecognitionDialogButtonLoading: false,
+                audioInstructionDialogButtonLoading: false,
 
                 audioUploadDialogVisible: false,
                 audioRecognitionDialogVisible: false,
@@ -272,6 +275,18 @@
                 } else {
                     ElMessage.warning(result.message);
                 }
+            },
+
+            async audioInstructionTest() {
+                this.audioInstructionDialogButtonLoading = true;
+                let result = await audioCommand(this.dialog.audioInstructionDialog.audio_serial);
+                console.log(result);
+                if (result.code === EnumHelper.HTTPStatus.OK) {
+                    ElMessage.success(result.info.hardware.message);
+                } else {
+                    ElMessage.warning(result.info.hardware.message);
+                }
+                this.audioInstructionDialogButtonLoading = false;
             },
 
             getWordListFromAudioRecognitionResult(result) {

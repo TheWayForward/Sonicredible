@@ -1,7 +1,9 @@
 <template>
     <div>
         <el-card shadow="hover">
-
+            <el-image
+                    :src="staticImage.image_dashboard_placeholder">
+            </el-image>
         </el-card>
     </div>
 </template>
@@ -14,6 +16,8 @@
     import VersatileHelper from "../utils/versatile_helper";
     import {getUsers} from "../api/index";
 
+    import image_dashboard_placeholder from "../assets/img/dashboard_placeholder.png";
+
     export default {
         name: "dashboard",
         data() {
@@ -25,13 +29,16 @@
                 lineChartObject: null,
                 activeName: ref("first"),
                 message: ref("first"),
+
+                staticImage: {
+                    image_dashboard_placeholder: image_dashboard_placeholder
+                }
             }
         },
 
         components: {Schart},
 
-        methods: {
-        },
+        methods: {},
 
         created() {
 
@@ -39,7 +46,7 @@
 
         mounted() {
             history.pushState(null, null, document.URL);
-            window.addEventListener("popstate",function(e) {
+            window.addEventListener("popstate", function (e) {
                 history.pushState(null, null, document.URL);
             }, false);
         }

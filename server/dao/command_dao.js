@@ -71,6 +71,12 @@ class CommandDao {
         return await Query.query(sql.sql, sql.params);
     }
 
+    static async switch({is_valid, id}) {
+        let params = {is_valid, id};
+        let sql = SQL.generateSQL(SQL.update({table_name: "audio_command", params: params, condition: `WHERE id = ?`}), [is_valid, id]);
+        return await Query.query(sql.sql, sql.params);
+    }
+
     static async matchCommandsByKeyword(wordList) {
         // a word list
         // [
