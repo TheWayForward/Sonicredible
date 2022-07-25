@@ -149,7 +149,7 @@ router.post("/command", PermissionHelper.tokenVerification, async (req, res) => 
                 let params = CommandDao.extractParams(wordList);
                 commandData = CommandDao.setParams(commandData, params);
             }
-            result = await HardwareRequest.excute(JSON.parse(commandData.content));
+            result = await HardwareRequest.execute(JSON.parse(commandData.content));
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
                 info: {
                     keyword: commandData.keyword,

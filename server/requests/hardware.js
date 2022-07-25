@@ -5,7 +5,7 @@ const BASE_URL = "http://127.0.0.1:3001";
 
 class HardwareRequest {
 
-    static excute = (command_content) => AjaxHelper.ajax({
+    static execute = (command_content) => AjaxHelper.ajax({
         url: `${BASE_URL}/hardware/execute`,
         params: {
             command_content: command_content
