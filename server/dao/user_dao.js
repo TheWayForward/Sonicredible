@@ -9,6 +9,23 @@ class UserDao {
         return await Query.query(sql.sql);
     }
 
+
+    static async selectUsers(page_index) {
+        let sql = SQL.generateSQL(SQL.select({
+            table_name: "user",
+            condition: `LIMIT ${page_index * Config.batch}, ${(page_index + 1) * Config.batch}`
+        }));
+        let userData = await Query.query(sql.sql);
+        sql = SQL.generateSQL(SQL.count({table_name: "user"}));
+        let userCount = await Query.query(sql.sql);
+        return {
+            batch: Config.batch,
+            total_pages: Math.ceil(userCount[0]["count"] / Config.batch),
+            user_data: userData,
+            user_count: userCount[0]["count"]
+        };
+    }
+
     static async login({username, password}) {
         let sql = SQL.generateSQL(SQL.select({
             table_name: "user",
@@ -35,21 +52,6 @@ class UserDao {
         return await Query.query(sql.sql, sql.params);
     }
 
-    static async selectUsers(page_index) {
-        let sql = SQL.generateSQL(SQL.select({
-            table_name: "user",
-            condition: `LIMIT ${page_index * Config.batch}, ${(page_index + 1) * Config.batch}`
-        }));
-        let userData = await Query.query(sql.sql);
-        sql = SQL.generateSQL(SQL.count({table_name: "user"}));
-        let userCount = await Query.query(sql.sql);
-        return {
-            batch: Config.batch,
-            total_pages: Math.ceil(userCount[0]["count"] / Config.batch),
-            user_data: userData,
-            user_count: userCount[0]["count"]
-        };
-    }
 
     static async update({realname, nickname, avatar, tel, email, id}) {
         let params = {realname, nickname, avatar, tel, email, id};

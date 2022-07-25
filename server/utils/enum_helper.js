@@ -1,4 +1,5 @@
 class EnumHelper {
+
     static authorityType = {
         root: "root",
         manager: "manager",
@@ -23,26 +24,30 @@ class EnumHelper {
         UNAUTHORIZED: 401,
         ULTRA_VIRES: 403,
         ERROR: 500
-    }
+    };
 
     static formField = {
         avatar: "avatar",
         audio: "audio"
-    }
+    };
 
     static imageType = {
         PNG: "image/png",
         JPG: "image/jpg",
         JPEG: "image/jpeg"
-    }
+    };
 
     static audioType = {
         MP3: "audio/mpeg"
-    }
+    };
 
     static databaseException = {
         ER_DUP_ENTRY: "ER_DUP_ENTRY"
-    }
+    };
+
+    static networkException = {
+        ECONNREFUSED: "ECONNREFUSED"
+    };
 
     static directory = {
         images: {
@@ -52,7 +57,8 @@ class EnumHelper {
             recognition: "public/audios/recognition",
             voiceprint: "public/audios/voiceprint"
         }
-    }
+    };
+
 }
 
 module.exports = EnumHelper;

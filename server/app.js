@@ -18,14 +18,14 @@ const rateLimitPlugin = rateLimit({
   headers: true
 });
 
+const app = express();
+
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 const uploadRouter = require("./routes/upload");
 const audioRouter = require("./routes/audio");
 const commandRouter = require("./routes/command");
 const voiceprintRouter = require("./routes/voiceprint");
-
-const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

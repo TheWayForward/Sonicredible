@@ -27,10 +27,6 @@ class AjaxHelper {
         });
     }
 
-    static ajaxFileUpload({url, headers, params}) {
-
-    }
-
 }
 
 module.exports = AjaxHelper;

@@ -100,7 +100,6 @@ class CommandDao {
         return await Transaction.transaction(sqls, params);
     }
 
-
 }
 
 module.exports = CommandDao;

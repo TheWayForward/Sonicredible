@@ -159,7 +159,11 @@ router.post("/command", PermissionHelper.tokenVerification, async (req, res) => 
             }));
         }
     } catch (err) {
-        console.log(err);
+        console.log(err.code);
+        if (err.code === EnumHelper.networkException.ECONNREFUSED) {
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.device_disconnected}));
+            return;
+        }
         res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.audio_instruction_failed}));
     }
 });

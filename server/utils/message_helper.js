@@ -55,8 +55,9 @@ class MessageHelper {
     static command_keyword_duplicate = "指令关键词已被注册！";
 
     // device
-    static  device_unauthorized = "非法获取设备信息！";
-    static  device_empty = "尚无设备！";
+    static device_unauthorized = "非法获取设备信息！";
+    static device_empty = "尚无设备！";
+    static device_disconnected = "硬件网关未连接！";
 
     // verification
     static ultra_vires = "越权访问！";

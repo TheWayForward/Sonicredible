@@ -4,23 +4,6 @@ const ObjectHelper = require("../utils/object_helper");
 
 class SQL {
 
-    static #objectToInsert(o) {
-        let fields = Object.getOwnPropertyNames(o);
-        let fieldString = fields.join(", ");
-        let placeholder = new Array(fields.length).fill("?");
-        let placeholderString = placeholder.join(", ");
-        return {
-            fieldString: fieldString,
-            placeholderString: placeholderString
-        }
-    }
-
-    static #objectToUpdate(o) {
-        let fields = Object.getOwnPropertyNames(o);
-        fields.pop();
-        return fields.join(" = ?, ") + " = ?";
-    }
-
     static generateSQL(sql, params) {
         return {
             sql,
@@ -62,6 +45,25 @@ class SQL {
         });
         return `${sql} ${condition === "" ? "" : condition}`;
     }
+
+
+    static #objectToInsert(o) {
+        let fields = Object.getOwnPropertyNames(o);
+        let fieldString = fields.join(", ");
+        let placeholder = new Array(fields.length).fill("?");
+        let placeholderString = placeholder.join(", ");
+        return {
+            fieldString: fieldString,
+            placeholderString: placeholderString
+        }
+    }
+
+    static #objectToUpdate(o) {
+        let fields = Object.getOwnPropertyNames(o);
+        fields.pop();
+        return fields.join(" = ?, ") + " = ?";
+    }
+
 }
 
 module.exports = SQL;
