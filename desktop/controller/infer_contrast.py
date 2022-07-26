@@ -9,14 +9,12 @@ from utils.utility import add_arguments, print_arguments
 
 parser = argparse.ArgumentParser(description=__doc__)
 add_arg = functools.partial(add_arguments, argparser=parser)
-add_arg('audio_path1',      str,    'audio/a_1.wav',          '预测第一个音频')
-add_arg('audio_path2',      str,    'audio/a_2.wav',          '预测第二个音频')
-add_arg('threshold',        float,   0.62,                    '判断是否为同一个人的阈值')
-add_arg('input_shape',      str,    '(1, 257, 257)',          '数据输入的形状')
-add_arg('model_path',       str,    'models/resnet34.pth',    '预测模型的路径')
+add_arg('audio_path1', str, 'audio/a_1.wav', '预测第一个音频')
+add_arg('audio_path2', str, 'audio/a_2.wav', '预测第二个音频')
+add_arg('threshold', float, 0.5, '判断是否为同一个人的阈值')
+add_arg('input_shape', str, '(1, 257, 257)', '数据输入的形状')
+add_arg('model_path', str, 'models/resnet34.pth', '预测模型的路径')
 args = parser.parse_args()
-
-
 
 device = torch.device("cuda")
 
@@ -36,9 +34,10 @@ def infer(audio_path):
     feature = model(data)
     return feature.data.cpu().numpy()
 
-def contrast(audio_path1,audio_path2):
-    args.audio_path1=audio_path1
-    args.audio_path2=audio_path2
+
+def contrast(audio_path1, audio_path2):
+    args.audio_path1 = audio_path1
+    args.audio_path2 = audio_path2
     print_arguments(args)
     # 要预测的两个人的音频文件
     feature1 = infer(args.audio_path1)[0]
@@ -47,8 +46,9 @@ def contrast(audio_path1,audio_path2):
     dist = np.dot(feature1, feature2) / (np.linalg.norm(feature1) * np.linalg.norm(feature2))
     if dist > args.threshold:
         print("%s 和 %s 为同一个人，相似度为：%f" % (args.audio_path1, args.audio_path2, dist))
+        return True
     else:
         print("%s 和 %s 不是同一个人，相似度为：%f" % (args.audio_path1, args.audio_path2, dist))
+        return False
 
 # contrast('audio/a_1.wav','audio/a_2.wav')
-

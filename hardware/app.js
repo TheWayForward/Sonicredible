@@ -1,8 +1,8 @@
 const express = require("express");
-const app = express();
-const bodyParser = require('body-parser');
-const JsonParser = bodyParser.json();
 const five = require("johnny-five");
+const bodyParser = require('body-parser');
+
+const JsonParser = bodyParser.json();
 
 const Config = require("./config");
 const EnumHelper = require("./utils/enum_helper");
@@ -13,6 +13,8 @@ const board = new five.Board({port: Config.hardwarePort});
 
 board.on("ready", () => {
 
+    const app = express();
+
     const led = new five.Led(11);
     const servo = new five.Servo(10);
 
@@ -20,10 +22,13 @@ board.on("ready", () => {
         try {
             let data = req.body;
             let commandContent = data.command_content;
-            if (commandContent.device === "LED") {
+            if (commandContent.device.toUpperCase() === "LED") {
                 let brightness = Math.abs(commandContent.brightness) % 256;
                 led.brightness(brightness);
                 console.log(`LED brightness set to ${brightness}`);
+            }
+            if (commandContent.device.toUpperCase() === "SERVO") {
+
             }
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({message: MessageHelper.device_execute_successful}));
         } catch (err) {
@@ -44,6 +49,7 @@ board.on("ready", () => {
 
     board.on("exit", () => {
         led.stop().off();
+        servo.stop();
     });
 
 });

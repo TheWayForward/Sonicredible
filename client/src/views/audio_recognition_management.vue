@@ -144,7 +144,7 @@
                     </el-descriptions-item>
                 </el-descriptions>
 
-                <el-button style="margin-top: 20px;" type="primary" size="small" v-if="dialog.audioInstructionDialog.audio_serial" v-loading="audioInstructionDialogButtonLoading" @click="audioInstructionTest">测试</el-button>
+                <el-button style="margin-top: 20px;" type="primary" size="small" v-if="dialog.audioInstructionDialog.audio_serial" :loading="audioInstructionDialogButtonLoading" @click="audioInstructionTest">测试</el-button>
 
             </el-dialog>
 
@@ -286,7 +286,7 @@
                 if (result.code === EnumHelper.HTTPStatus.OK) {
                     ElMessage.success(result.info.hardware.message);
                 } else {
-                    ElMessage.warning(result.info.hardware.message);
+                    ElMessage.warning(result.message);
                 }
                 this.audioInstructionDialogButtonLoading = false;
             },

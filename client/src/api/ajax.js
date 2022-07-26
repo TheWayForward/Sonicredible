@@ -31,3 +31,4 @@ export default function ajax({url, headers = {
         })
     })
 }
+

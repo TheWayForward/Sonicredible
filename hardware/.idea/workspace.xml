@@ -20,30 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbb11193-b146-4407-b32b-122a42367e42" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/alipay.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/cash.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/img.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/jd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/paypal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/sf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/wechatminiprogram_swiper_placeholder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/assets/img/wxpay.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/components/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/Sidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/audio_command_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_command_management.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/audio_recognition_management.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/audio_recognition_management.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/device_command.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/device_log.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/device_management.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/views/user_log.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../document/draft.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/../document/draft.pptx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../document/~$声纹识别的语声控制器.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/dao/command_dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/dao/command_dao.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/routes/audio.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/audio.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/routes/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/command.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +91,8 @@
       <workItem from="1658577078817" duration="1770000" />
       <workItem from="1658593392849" duration="1258000" />
       <workItem from="1658622111783" duration="1515000" />
+      <workItem from="1658766449832" duration="2400000" />
+      <workItem from="1658796164362" duration="72000" />
     </task>
     <servers />
   </component>
