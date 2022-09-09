@@ -5,7 +5,7 @@ const router = express.Router();
 const AudioDao = require("../dao/audio_dao");
 const CommandDao = require("../dao/command_dao");
 
-const HardwareRequest = require("../requests/hardware");
+const Requests = require("../requests");
 
 const MessageHelper = require("../utils/message_helper");
 const CryptoHelper = require("../utils/crypto_helper");
@@ -36,7 +36,7 @@ router.post("/recognition", PermissionHelper.tokenVerification, async (req, res)
                 userAudioKey: audioData.serial,
                 audioFileDirectory: audioData.url
             });
-            result = await AudioDao.updateResult({result: JSON.stringify(recognitionResult), id: audio_id});
+            await AudioDao.updateResult({result: JSON.stringify(recognitionResult), id: audio_id});
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({info: recognitionResult}));
         }
     } catch (err) {
@@ -149,7 +149,7 @@ router.post("/command", PermissionHelper.tokenVerification, async (req, res) => 
                 let params = CommandDao.extractParams(wordList);
                 commandData = CommandDao.setParams(commandData, params);
             }
-            result = await HardwareRequest.execute(JSON.parse(commandData.content));
+            result = await Requests.HardwareRequest.execute(JSON.parse(commandData.content));
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
                 info: {
                     keyword: commandData.keyword,

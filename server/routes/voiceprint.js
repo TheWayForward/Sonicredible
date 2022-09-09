@@ -15,13 +15,13 @@ const FileHelper = require("../utils/file_helper");
 const SerialHelper = require("../utils/serial_helper");
 const ObjectHelper = require("../utils/object_helper");
 const TencentCloudHelper = require("../utils/tencent_cloud_helper");
+const Request = require("../requests/index");
 
 router.post("/get_voiceprint", PermissionHelper.tokenVerification, async (req, res) => {
     try {
         let tokenData = JWTHelper.parseToken(req);
         let user_id = tokenData.user_id;
         let result = await VoiceprintDao.selectVoiceprintByUserId(user_id);
-        console.log(result);
         if (!result.length) {
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({info: MessageHelper.voiceprint_unregistered}));
         } else {
@@ -46,6 +46,31 @@ router.post("/get_voiceprints", PermissionHelper.tokenVerification, PermissionHe
     }
 });
 
-
+router.post("/contrast", PermissionHelper.tokenVerification, async (req, res) => {
+    try {
+        let data = req.body;
+        let user_voiceprint_url = data.user_voiceprint_url;
+        let target_voice_url = data.target_voice_url;
+        let result = await Request.VoiceprintContrastRequest.execute({
+            user_voiceprint_url: user_voiceprint_url,
+            target_voice_url: target_voice_url
+        });
+        if (result.code === EnumHelper.HTTPStatus.OK) {
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
+                info: {
+                    is_same: result.info.is_same.toLowerCase() === "true",
+                    similarity: Number(result.info.similarity)
+                }
+            }));
+        }
+    } catch (err) {
+        console.log(err.code);
+        if (err.code === EnumHelper.networkException.ECONNREFUSED) {
+            res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.voiceprint_service_disconnected}));
+            return;
+        }
+        res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.noContent({message: MessageHelper.voiceprint_contrast_failed}));
+    }
+});
 
 module.exports = router;

@@ -26,6 +26,11 @@ class EnumHelper {
         ERROR: 500
     };
 
+    static platform = {
+        windows: "windows",
+        web: "web"
+    }
+
     static formField = {
         avatar: "avatar",
         audio: "audio"
@@ -55,7 +60,8 @@ class EnumHelper {
         },
         audios: {
             recognition: "public/audios/recognition",
-            voiceprint: "public/audios/voiceprint"
+            voiceprint: "public/audios/voiceprint",
+            convert: "public/audios/convert"
         }
     };
 

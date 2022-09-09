@@ -20,13 +20,14 @@ class TencentCloudHelper {
 
     static async sentenceRecognition({userAudioKey, audioFileDirectory}) {
         const client = new AsrClient(this.#clientConfig);
+        let convertedFileDirectory = await FileHelper.wavToMp3(audioFileDirectory);
         return await client.SentenceRecognition({
             "UsrAudioKey": userAudioKey,
             "SubServiceType": 2,
             "ProjectId": 0,
             "EngSerViceType": "16k_zh",
             "VoiceFormat": "mp3",
-            "Data": FileHelper.fileToBase64(audioFileDirectory),
+            "Data": FileHelper.fileToBase64(convertedFileDirectory),
             "SourceType": 1,
             "WordInfo": 1
         });

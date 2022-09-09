@@ -20,8 +20,146 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbb11193-b146-4407-b32b-122a42367e42" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/dao/audio_dao.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/dao/upload_dao.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/dao/user_dao.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/dao/voiceprint_dao.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/db/cache_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/db/cache_items.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/models/user_model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/navigator/bottom_navigator.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/navigator/navigator_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/network/request/audio/audio_recognition_request.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/network/request/upload/audio_upload_request.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/network/request/upload/voiceprint_upload_request.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/network/request/voiceprint/get_voiceprint_request.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/network/request/voiceprint/voiceprint_contrast_request.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/about_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/audio_recognition_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/home_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/image_preview_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/login_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/profile_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/voiceprint_contrast_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/pages/voiceprint_register_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/provider/provider_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/provider/theme_provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/color_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/config_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/file_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/input_format_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/message_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/style_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/tag_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/url_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/utils/verification_helper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/alert_dialog_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/appbar_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/audio_recorder_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/copyright_text_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/icon_card_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/input_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/large_button_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/loading_skeleton_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/loading_toast_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/ok_cancel_dialog_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/lib/widgets/splash_screen_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/binary_messenger_impl.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/byte_buffer_streams.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/core_implementations.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/engine_method_result.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/flutter_engine.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/flutter_view_controller.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/basic_message_channel.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/binary_messenger.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/byte_streams.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/dart_project.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/encodable_value.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/engine_method_result.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/event_channel.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/event_sink.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/event_stream_handler.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/event_stream_handler_functions.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/flutter_engine.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/flutter_view.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/flutter_view_controller.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/message_codec.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/method_call.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/method_channel.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/method_codec.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/method_result.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/method_result_functions.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/plugin_registrar.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/plugin_registrar_windows.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/plugin_registry.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/standard_codec_serializer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/standard_message_codec.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/standard_method_codec.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/include/flutter/texture_registrar.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/plugin_registrar.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/readme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/standard_codec.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/cpp_client_wrapper/texture_registrar_impl.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_export.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_messenger.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_plugin_registrar.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_texture_registrar.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_windows.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_windows.dll.exp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_windows.dll.lib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_windows.dll.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/flutter_windows.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/generated_config.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/ephemeral/icudtl.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/Runner.rc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/flutter_window.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/flutter_window.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/resource.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/resources/app_icon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/runner.exe.manifest" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/utils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/utils.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/win32_window.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/app/windows/runner/win32_window.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/service/.idea/service.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/service/sonicreble/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/service/sonicreble_sdk/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/service/utils/convert_helper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/service/utils/file_helper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/service/utils/message_helper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../desktop/service/utils/response_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/views/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/views/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../desktop/controller/audio/Local_voice.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/../desktop/controller/audio/Local_voice.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../desktop/controller/audio/Local_voice.wav" beforeDir="false" afterPath="$PROJECT_DIR$/../desktop/controller/audio/Local_voice.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../desktop/controller/storage/storage.dat" beforeDir="false" afterPath="$PROJECT_DIR$/../desktop/controller/storage/storage.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/.idea/runConfigurations/bin_www.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/runConfigurations/bin_www.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/dao/audio_dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/dao/audio_dao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/dao/command_dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/dao/command_dao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/dao/user_dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/dao/user_dao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/dao/voiceprint_dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/dao/voiceprint_dao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/public/images/avatar/default.png" beforeDir="false" afterPath="$PROJECT_DIR$/../server/public/images/avatar/default.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/requests/hardware.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/requests/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/routes/audio.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/audio.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/routes/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/routes/voiceprint.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/routes/voiceprint.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/utils/enum_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/enum_helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/utils/file_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/file_helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/utils/jwt_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/jwt_helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/utils/message_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/message_helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/utils/tencent_cloud_helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/tencent_cloud_helper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +231,7 @@
       <workItem from="1658622111783" duration="1515000" />
       <workItem from="1658766449832" duration="2400000" />
       <workItem from="1658796164362" duration="72000" />
+      <workItem from="1659239974093" duration="1338000" />
     </task>
     <servers />
   </component>
@@ -112,22 +251,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1814" height="232" key="GridCell.Tab.0.bottom" timestamp="1658627852493">
+    <state width="1814" height="232" key="GridCell.Tab.0.bottom" timestamp="1659242048174">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="232" key="GridCell.Tab.0.bottom/0.0.1857.1080@0.0.1857.1080" timestamp="1658627852493" />
-    <state width="1814" height="232" key="GridCell.Tab.0.center" timestamp="1658627852493">
+    <state width="1814" height="232" key="GridCell.Tab.0.bottom/0.0.1857.1080@0.0.1857.1080" timestamp="1659242048174" />
+    <state width="1814" height="232" key="GridCell.Tab.0.center" timestamp="1659242048171">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="232" key="GridCell.Tab.0.center/0.0.1857.1080@0.0.1857.1080" timestamp="1658627852493" />
-    <state width="1814" height="232" key="GridCell.Tab.0.left" timestamp="1658627852493">
+    <state width="1814" height="232" key="GridCell.Tab.0.center/0.0.1857.1080@0.0.1857.1080" timestamp="1659242048171" />
+    <state width="1814" height="232" key="GridCell.Tab.0.left" timestamp="1659242048170">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="232" key="GridCell.Tab.0.left/0.0.1857.1080@0.0.1857.1080" timestamp="1658627852493" />
-    <state width="1814" height="232" key="GridCell.Tab.0.right" timestamp="1658627852493">
+    <state width="1814" height="232" key="GridCell.Tab.0.left/0.0.1857.1080@0.0.1857.1080" timestamp="1659242048170" />
+    <state width="1814" height="232" key="GridCell.Tab.0.right" timestamp="1659242048173">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>
-    <state width="1814" height="232" key="GridCell.Tab.0.right/0.0.1857.1080@0.0.1857.1080" timestamp="1658627852493" />
+    <state width="1814" height="232" key="GridCell.Tab.0.right/0.0.1857.1080@0.0.1857.1080" timestamp="1659242048173" />
     <state x="591" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1658558887412">
       <screen x="0" y="0" width="1857" height="1080" />
     </state>

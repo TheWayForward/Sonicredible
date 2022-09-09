@@ -22,7 +22,7 @@ class AudioDao {
     static async selectAudios(page_index) {
         let sql = SQL.generateSQL(SQL.select({
             table_name: "audio_recognition",
-            condition: `LIMIT ${page_index * Config.batch}, ${(page_index + 1) * Config.batch}`
+            condition: `LIMIT ${page_index * Config.batch}, ${Config.batch}`
         }));
         let audioData = await Query.query(sql.sql);
         sql = SQL.generateSQL(SQL.count({table_name: "audio_recognition"}));

@@ -50,6 +50,8 @@ class MessageHelper {
 
     // voiceprint
     static voiceprint_unregistered = "该用户尚未注册声纹！";
+    static voiceprint_contrast_failed = "声纹识别失败！";
+    static voiceprint_service_disconnected = "声纹识别服务未开启！";
 
     // command
     static command_keyword_duplicate = "指令关键词已被注册！";

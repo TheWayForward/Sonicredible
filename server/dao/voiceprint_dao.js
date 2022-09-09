@@ -20,7 +20,7 @@ class VoiceprintDao {
     static async selectVoiceprints(page_index) {
         let sql = SQL.generateSQL(SQL.select({
             table_name: "voiceprint",
-            condition: `LIMIT ${page_index * Config.batch}, ${(page_index + 1) * Config.batch}`
+            condition: `LIMIT ${page_index * Config.batch}, ${Config.batch}`
         }));
         let voiceprintData = await Query.query(sql.sql);
         sql = SQL.generateSQL(SQL.count({table_name: "voiceprint"}));

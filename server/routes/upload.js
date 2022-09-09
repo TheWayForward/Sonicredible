@@ -68,14 +68,15 @@ router.post("/audio_recognition", PermissionHelper.tokenVerification, async (req
                 res.status(EnumHelper.HTTPStatus.ERROR).send(ResponseHelper.error({}));
             }
             let path = StringHelper.directoryRevision("" + files[EnumHelper.formField.audio][0]["path"]);
-            let base64 = FileHelper.fileToBase64(path);
+            // let base64 = FileHelper.fileToBase64(path);
             let serial = SerialHelper.generateAudioFileSerial();
-            let result = await AudioDao.insertAudio({serial: serial, user_id: user_id, url: path, base64: base64});
+            await AudioDao.insertAudio({serial: serial, user_id: user_id, url: path, base64: "unavailable"});
+            let result = await AudioDao.selectAudioBySerial(serial);
             res.status(EnumHelper.HTTPStatus.OK).send(ResponseHelper.ok({
                 info: {
+                    id: result[0].id,
                     serial: serial,
-                    path: path,
-                    base64: base64
+                    path: path
                 }
             }));
         });

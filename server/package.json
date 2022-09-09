@@ -8,14 +8,18 @@
   "dependencies": {
     "aes-js": "^3.1.2",
     "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
     "codemirror-editor-vue3": "^2.1.7",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-rate-limit": "^6.4.0",
+    "ffmpeg": "^0.0.4",
     "firmata": "^2.3.0",
+    "fluent-ffmpeg": "^2.1.2",
     "http-errors": "~1.6.3",
+    "hyperid": "^3.0.1",
     "johnny-five": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
     "kardia": "^0.14.0",
@@ -26,12 +30,16 @@
     "morgan": "~1.9.1",
     "multiparty": "^4.2.3",
     "mysql": "^2.18.1",
+    "node-wav": "^0.0.2",
     "nodejs-websocket": "^1.7.2",
     "nodemailer": "^6.7.7",
+    "pm2": "^5.2.0",
     "process": "^0.11.10",
     "pug": "2.0.0-beta11",
     "serialport": "^10.4.0",
-    "tencentcloud-sdk-nodejs": "^4.0.381"
+    "tencentcloud-sdk-nodejs": "^4.0.381",
+    "video-converter": "^1.0.0",
+    "ytdl-core": "^4.11.0"
   },
   "devDependencies": {
     "express-session": "^1.17.3"

@@ -43,7 +43,7 @@ class CommandDao {
     static async selectCommands(page_index) {
         let sql = SQL.generateSQL(SQL.select({
             table_name: "audio_command",
-            condition: `LIMIT ${page_index * Config.batch}, ${(page_index + 1) * Config.batch}`
+            condition: `LIMIT ${page_index * Config.batch}, ${Config.batch}`
         }));
         let commandData = await Query.query(sql);
         sql = SQL.generateSQL(SQL.count({table_name: "audio_command"}));

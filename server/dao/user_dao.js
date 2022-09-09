@@ -13,7 +13,7 @@ class UserDao {
     static async selectUsers(page_index) {
         let sql = SQL.generateSQL(SQL.select({
             table_name: "user",
-            condition: `LIMIT ${page_index * Config.batch}, ${(page_index + 1) * Config.batch}`
+            condition: `LIMIT ${page_index * Config.batch}, ${Config.batch}`
         }));
         let userData = await Query.query(sql.sql);
         sql = SQL.generateSQL(SQL.count({table_name: "user"}));

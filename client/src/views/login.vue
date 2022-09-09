@@ -84,6 +84,7 @@
                         let result = await login({username: params.username, password: params.password});
                         if (result.code === 200) {
                             ElMessage.success(result.message);
+                            console.log(result.info);
                             let userinfo = result.info.userinfo;
                             localStorage.setItem(EnumHelper.localStorageItem.avatar, URLHelper.parseUrl(userinfo.avatar));
                             localStorage.setItem(EnumHelper.localStorageItem.realname, userinfo.realname);
